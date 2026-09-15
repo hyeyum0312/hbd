@@ -283,8 +283,9 @@ class Component extends DCLogic {
 
   componentDidMount() { this._previousState = this.state; this.play(); }
   componentWillUnmount() { clearInterval(this._iv); [this._to,this._to2,this._fwt,this._e1,this._e2,this._e3,this._readTimer,this._achTimer,this._audioTimer,
-    this._memAutoT,this._driveT1,this._driveT2,this._driveT3,this._planetT1,this._planetT2].forEach(clearTimeout);
+    this._memAutoT,this._driveT1,this._driveT2,this._driveT3,this._planetT1,this._planetT2,this._themeTimer].forEach(clearTimeout);
     if (this._audio) { this._audio.close().catch(() => {}); this._audio = null; }
+    if (this._themeAudio) { this._themeAudio.close().catch(() => {}); this._themeAudio = null; }
   }
 
   // 모든 대사에 같은 출력/읽기 잠금을 적용한다.
@@ -323,6 +324,7 @@ class Component extends DCLogic {
             ...(s.li + 1 === SCRIPT.space.lines.length ? { typed: "", dialogueHistory: [] } : {}) }));
         }
         else if (this.state.ch === "space" && this.state.achStep >= 1 && this.state.achStep < 1 + ACHIEVEMENT_LINES.length) {
+          if (this.state.achStep === 1) this.playFanfare(); // "★ ACHIEVEMENT UNLOCKED ★" 등장 순간 짜잔 소리
           this.setState(s => ({ achStep: s.achStep + 1, typed: "", dialogueHistory: [] }));
         }
         // 클리어 메시지는 다음 공격까지 유지하고, 마지막 전투 후 업적으로 전환한다.
@@ -356,10 +358,43 @@ class Component extends DCLogic {
 
   bootStep = () => {
     if (this.state.bootN >= BOOT.length) return;
+    if (this.state.bootN === 0) this.playPowerOn();
     this.setState(s => ({ bootN: s.bootN + 1 }), () => {
       if (this.state.bootN < BOOT.length) { this._to = setTimeout(this.bootStep, 160); }
     });
   };
+
+  playPowerOn() {
+    if (typeof window === "undefined") return;
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) return;
+    try {
+      const audio = this._audio && this._audio.state !== "closed" ? this._audio : (this._audio = new Audio());
+      audio.resume().then(() => {
+        if (this._audio !== audio || audio.state === "closed") return;
+        const start = audio.currentTime;
+        const sweep = audio.createOscillator(), sweepGain = audio.createGain();
+        sweep.type = "square";
+        sweep.frequency.setValueAtTime(130, start);
+        sweep.frequency.exponentialRampToValueAtTime(1046, start + 0.3);
+        sweepGain.gain.setValueAtTime(.001, start);
+        sweepGain.gain.exponentialRampToValueAtTime(.05, start + 0.06);
+        sweepGain.gain.exponentialRampToValueAtTime(.001, start + 0.3);
+        sweep.connect(sweepGain); sweepGain.connect(audio.destination);
+        sweep.start(start); sweep.stop(start + 0.31);
+        const chirp = audio.createOscillator(), chirpGain = audio.createGain(), chirpAt = start + 0.3;
+        chirp.type = "square"; chirp.frequency.setValueAtTime(1568, chirpAt);
+        chirpGain.gain.setValueAtTime(.06, chirpAt);
+        chirpGain.gain.exponentialRampToValueAtTime(.001, chirpAt + 0.12);
+        chirp.connect(chirpGain); chirpGain.connect(audio.destination);
+        chirp.start(chirpAt); chirp.stop(chirpAt + 0.13);
+        this._audioTimer = setTimeout(() => {
+          if (this._audio === audio) this._audio = null;
+          audio.close().catch(() => {});
+        }, 500);
+      }).catch(() => {});
+    } catch (_) { /* 부팅 연출용 보조 사운드, 없어도 진행에는 지장 없음 */ }
+  }
 
   componentDidUpdate() {
     // dc-runtime passes previous props only; retain our own state snapshot.
@@ -440,6 +475,7 @@ class Component extends DCLogic {
   fight = () => {
     const e = ENEMIES[this.state.killed];
     if (!e || this.renderVals(true).locked) return;
+    this.playZap();
     this._followDialogue = true;
     this.setState(s => ({
       typed: "", dialogueHistory: [],
@@ -473,9 +509,110 @@ class Component extends DCLogic {
 
   enterMurim = () => {
     this._followDialogue = true;
+    this.playVortex();
     this.setState({ glitch: true, typed: "", dialogueHistory: [] });
-    this._to = setTimeout(() => this.setState({ glitch: false, murimIn: true }), 700);
+    this._to = setTimeout(() => {
+      this.playArcadeHit();
+      this.playMurimTheme();
+      this.setState({ glitch: false, murimIn: true });
+    }, 700);
   };
+
+  playMurimTheme() {
+    // 짧은 효과음들과 AudioContext를 공유하면 그쪽의 조기 close()에 묻혀 끊길 수 있어 전용 컨텍스트를 쓴다.
+    if (typeof window === "undefined") return;
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) return;
+    try {
+      if (this._themeAudio && this._themeAudio.state !== "closed") this._themeAudio.close().catch(() => {});
+      clearTimeout(this._themeTimer);
+      const audio = this._themeAudio = new Audio();
+      audio.resume().then(() => {
+        if (this._themeAudio !== audio || audio.state === "closed") return;
+        const start = audio.currentTime;
+        const note = (freq, at, dur, type, vol) => {
+          const tone = audio.createOscillator(), gain = audio.createGain(), t = start + at;
+          tone.type = type;
+          tone.frequency.setValueAtTime(freq, t);
+          gain.gain.setValueAtTime(vol, t);
+          gain.gain.exponentialRampToValueAtTime(.0001, t + dur);
+          tone.connect(gain); gain.connect(audio.destination);
+          tone.start(t); tone.stop(t + dur + .02);
+        };
+        // 8비트 무림 테마 리드 멜로디, 약 2.9초 x 2회 반복(≈5.8초)
+        const lead = [
+          [440, .16], [523.25, .16], [587.33, .16], [440, .16],
+          [523.25, .16], [659.25, .16], [587.33, .16], [440, .32],
+          [392, .16], [440, .16], [523.25, .16], [392, .16],
+          [440, .16], [523.25, .16], [440, .16], [349.23, .32]
+        ];
+        let t = 0;
+        for (let rep = 0; rep < 2; rep++) {
+          lead.forEach(([freq, dur]) => { note(freq, t, dur * .85, "square", .045); t += dur; });
+        }
+        const totalDur = t;
+        for (let bt = 0; bt < totalDur; bt += .32) {
+          const bassFreq = Math.floor(bt / .64) % 2 === 0 ? 110 : 146.83;
+          note(bassFreq, bt, .28, "triangle", .05);
+        }
+        this._themeTimer = setTimeout(() => {
+          if (this._themeAudio === audio) this._themeAudio = null;
+          audio.close().catch(() => {});
+        }, totalDur * 1000 + 300);
+      }).catch(() => {});
+    } catch (_) { /* 무림 테마 보조 사운드, 없어도 진행에는 지장 없음 */ }
+  }
+
+  playVortex() {
+    if (typeof window === "undefined") return;
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) return;
+    try {
+      const audio = this._audio && this._audio.state !== "closed" ? this._audio : (this._audio = new Audio());
+      audio.resume().then(() => {
+        if (this._audio !== audio || audio.state === "closed") return;
+        const tone = audio.createOscillator(), gain = audio.createGain(), start = audio.currentTime;
+        tone.type = "sawtooth";
+        tone.frequency.setValueAtTime(1100, start);
+        tone.frequency.exponentialRampToValueAtTime(70, start + 0.62);
+        gain.gain.setValueAtTime(.0001, start);
+        gain.gain.exponentialRampToValueAtTime(.045, start + 0.08);
+        gain.gain.exponentialRampToValueAtTime(.0001, start + 0.65);
+        tone.connect(gain); gain.connect(audio.destination);
+        tone.start(start); tone.stop(start + 0.66);
+        this._audioTimer = setTimeout(() => {
+          if (this._audio === audio) this._audio = null;
+          audio.close().catch(() => {});
+        }, 700);
+      }).catch(() => {});
+    } catch (_) { /* 우주로 빨려들어가는 연출용 보조 사운드, 없어도 진행에는 지장 없음 */ }
+  }
+
+  playArcadeHit() {
+    if (typeof window === "undefined") return;
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) return;
+    try {
+      const audio = this._audio && this._audio.state !== "closed" ? this._audio : (this._audio = new Audio());
+      audio.resume().then(() => {
+        if (this._audio !== audio || audio.state === "closed") return;
+        const start = audio.currentTime;
+        [[220, 0, .05], [880, .05, .09]].forEach(([freq, at, dur]) => {
+          const tone = audio.createOscillator(), gain = audio.createGain(), t = start + at;
+          tone.type = "square";
+          tone.frequency.setValueAtTime(freq, t);
+          gain.gain.setValueAtTime(.06, t);
+          gain.gain.exponentialRampToValueAtTime(.001, t + dur);
+          tone.connect(gain); gain.connect(audio.destination);
+          tone.start(t); tone.stop(t + dur + .01);
+        });
+        this._audioTimer = setTimeout(() => {
+          if (this._audio === audio) this._audio = null;
+          audio.close().catch(() => {});
+        }, 300);
+      }).catch(() => {});
+    } catch (_) { /* 무림 등장 임팩트용 보조 사운드, 없어도 진행에는 지장 없음 */ }
+  }
 
   openEarthLog = () => {
     this._followDialogue = true;
@@ -508,6 +645,30 @@ class Component extends DCLogic {
       if (!this._audio || this._audio.state === "closed") this._audio = new Audio();
       this._audio.resume().catch(() => {});
     } catch (_) {}
+  }
+
+  playZap() {
+    if (typeof window === "undefined") return;
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) return;
+    try {
+      const audio = this._audio && this._audio.state !== "closed" ? this._audio : (this._audio = new Audio());
+      audio.resume().then(() => {
+        if (this._audio !== audio || audio.state === "closed") return;
+        const tone = audio.createOscillator(), gain = audio.createGain(), start = audio.currentTime;
+        tone.type = "square";
+        tone.frequency.setValueAtTime(720, start);
+        tone.frequency.exponentialRampToValueAtTime(120, start + 0.12);
+        gain.gain.setValueAtTime(.05, start);
+        gain.gain.exponentialRampToValueAtTime(.001, start + 0.14);
+        tone.connect(gain); gain.connect(audio.destination);
+        tone.start(start); tone.stop(start + 0.15);
+        this._audioTimer = setTimeout(() => {
+          if (this._audio === audio) this._audio = null;
+          audio.close().catch(() => {});
+        }, 400);
+      }).catch(() => {});
+    } catch (_) { /* Sound effect is optional; ATTACK still works without it. */ }
   }
 
   playFanfare() {
