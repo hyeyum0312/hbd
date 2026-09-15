@@ -252,7 +252,7 @@ const SCRIPT = {
   },
   quantum: {
     label: "CHAPTER 2 — QUANTUM ZONE",
-    lines: ["WARNING : QUANTUM ANOMALY DETECTED.", "관측하기 전 지운의 상태는\n[ 코딩 중 ]·[ 무협 읽는 중 ]·[ 자는 중 ]\n세 상태가 동시에 중첩되어 있다.", "관측하시겠습니까?"]
+    lines: ["관측하기 전 지운의 상태는\n[ 코딩 중 ]·[ 무협 읽는 중 ]·[ 자는 중 ]\n세 상태가 동시에 중첩되어 있다.", "관측하시겠습니까?"]
   },
   murim: {
     label: "CHAPTER 3 — MURIM DIMENSION",
@@ -480,7 +480,25 @@ class Component extends DCLogic {
   openEarthLog = () => {
     this._followDialogue = true;
     this.setState({ typed: "", dialogueHistory: [], birthdayLog: true });
+    this.playMood();
   };
+
+  playMood() {
+    if (typeof window === "undefined" || typeof Audio === "undefined") return;
+    try {
+      if (!this._mood) {
+        this._mood = new Audio("Mood_Night.mp3");
+        this._mood.loop = true;
+        this._mood.volume = 0.5;
+      }
+      this._mood.play().catch(() => {});
+    } catch (_) { /* Background music is a nice-to-have; the scene still works without it. */ }
+  }
+
+  stopMood() {
+    if (!this._mood) return;
+    try { this._mood.pause(); this._mood.currentTime = 0; } catch (_) {}
+  }
 
   prepareAudio() {
     if (typeof window === "undefined") return;
@@ -988,7 +1006,7 @@ class Component extends DCLogic {
           : [this.btn("▶ NEXT", this.next)];
       }
     } else if (S.ch === "quantum") {
-      if (S.li >= 2) {
+      if (S.li >= 1) {
         dialogue = S.observing ? "OBSERVING..." :
           S.observed ? "WAVE FUNCTION COLLAPSED.\nRESULT : " + S.observed + ".\n무협 읽다가 그대로 잠든 것으로 추정. 역시." :
           "관측하시겠습니까? (관측하면 확정됩니다)";
@@ -1025,14 +1043,14 @@ class Component extends DCLogic {
         dialogue = P === 0 ? "MISSION COMPLETE\nLEVEL 31 → LEVEL 32\nHAPPY BIRTHDAY, 지운!" : P === 1 ? "BACK TO PRESENT.\n이제는 함께 접속 중." : "...!";
         choices = P === 2 ? [this.btn("▶ NEXT", this.skipEnding, "primary")] : [];
       } else if (P === 3) {
-        dialogue = this.isSample ? "생일 진짜 많이 축하해 ❤️" : "앞으로도 하고 싶은 거 실컷 하고,\n좋아하는 무협도 실컷 읽고,\n나랑 여행도 많이 다니고,\n\n돈도 많이 벌어서 사랑하는 가족들도 잘 챙기고,\n무엇보다 아프지 말고 건강하게\n나랑 오래오래 같이 놀자.\n\n지운아, 생일 진짜 많이 축하해 ❤️사랑해";
+        dialogue = this.isSample ? "생일 진짜 많이 축하해 ❤️" : "TO. 지운이에게\n\n앞으로도 하고 싶은 거 실컷 하고,\n좋아하는 무협도 실컷 읽고,\n나랑 여행도 많이 다니고,\n\n돈도 많이 벌어서 사랑하는 가족들도 잘 챙기고,\n무엇보다 아프지 말고 건강하게\n나랑 오래오래 같이 놀자.\n\n지운아, 생일 진짜 많이 축하해 ❤️사랑해";
         choices = [this.btn("▶ NEXT", () => {
           this._followDialogue = true;
           this.setState({ endPhase: 5, ended: true, typed: "", dialogueHistory: [] });
         }, "primary")];
       } else {
         dialogue = "다음 생일까지 계속됩니다...\n\nMAIN QUEST UPDATED — " + name + "이 하고 싶은 거 다 하면서 행복하게 살기\nPLAYER : " + name + "  ·  LEVEL : 32\nPARTY MEMBER : " + partner + " ❤️  ·  PARTY STATUS : 함께 모험 중...";
-        choices = [this.btn("[ 처음부터 ]", () => (this._ranEnd = 0, this.setState({ ch: "boot", li: 0, bootN: 0, killed: 0, exp: 0, combatMessage: "", observed: null, murimIn: false, level: 31, birthdayLog: false, ended: false, achStep: 0, planetTravel: false, driveCaption: "hidden", endPhase: 0, endingBusy: false, fw: 0, memoryPhase: 0, typed: "" })), "ghost")];
+        choices = [this.btn("[ 처음부터 ]", () => (this._ranEnd = 0, this.stopMood(), this.setState({ ch: "boot", li: 0, bootN: 0, killed: 0, exp: 0, combatMessage: "", observed: null, murimIn: false, level: 31, birthdayLog: false, ended: false, achStep: 0, planetTravel: false, driveCaption: "hidden", endPhase: 0, endingBusy: false, fw: 0, memoryPhase: 0, typed: "" })), "ghost")];
       }
     }
 
