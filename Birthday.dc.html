@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="./image-slot.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #05070F; color: #E8ECF5; font-family: "IBM Plex Sans KR", sans-serif; overflow-x: hidden; }
+  a { color: #5EE6FF; text-decoration: none; }
+  a:hover { color: #FF5FA2; }
+  ::selection { background: rgba(94,230,255,.3); }
+  @keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes hop { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  @keyframes floaty { 0%,100% { transform: translateY(0) rotate(var(--r,0deg)); } 50% { transform: translateY(-18px) rotate(var(--r,0deg)); } }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes blink { 0%,45% { opacity: 1; } 50%,100% { opacity: .15; } }
+  @keyframes pop { 0% { transform: scale(.74); opacity: 0; } 60% { transform: scale(1.04); } 100% { transform: scale(1); opacity: 1; } }
+  @keyframes fall { to { transform: translateY(110vh) rotate(540deg); opacity: 0; } }
+  @keyframes stepspin { 0% { transform: rotate(0); } 25% { transform: rotate(90deg); } 50% { transform: rotate(180deg); } 75% { transform: rotate(270deg); } 100% { transform: rotate(360deg); } }
+  @keyframes walk { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+  @keyframes stardrift { from { transform: translate3d(0,0,0); } to { transform: translate3d(-400px,-260px,0); } }
+  @keyframes auroraShift { 0%,100% { transform: translate(-6%,-4%) scale(1); opacity:.5; } 50% { transform: translate(6%,4%) scale(1.15); opacity:.85; } }
+  @keyframes flicker { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+  @keyframes heartup { 0% { transform: translateY(0) scale(.6); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(-120px) scale(1.1); opacity: 0; } }
+</style>
+</helmet>
+
+<div aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(1100px 620px at 78% -8%,rgba(167,139,250,.20),transparent 62%),radial-gradient(900px 520px at 10% 12%,rgba(94,230,255,.14),transparent 60%),radial-gradient(800px 700px at 50% 110%,rgba(255,95,162,.12),transparent 60%)"></div>
+<div aria-hidden="true" style="position:fixed;inset:-40%;z-index:0;pointer-events:none;opacity:.7;background-image:radial-gradient(1.4px 1.4px at 12% 18%,#fff,transparent),radial-gradient(1.2px 1.2px at 32% 62%,#cfe3ff,transparent),radial-gradient(1.6px 1.6px at 68% 28%,#fff,transparent),radial-gradient(1.1px 1.1px at 84% 72%,#bcd6ff,transparent),radial-gradient(1.3px 1.3px at 47% 84%,#fff,transparent),radial-gradient(1px 1px at 22% 44%,#9fc4ff,transparent),radial-gradient(1.5px 1.5px at 92% 12%,#fff,transparent),radial-gradient(1px 1px at 58% 8%,#cfe3ff,transparent);background-size:520px 520px;animation:stardrift 160s linear infinite"></div>
+
+<div style="position:fixed;top:0;left:0;right:0;height:8px;background:rgba(17,23,48,.8);z-index:60;border-bottom:1px solid #2A3558">
+  <div data-bar="1" style="height:100%;width:0%;background:#FF5FA2"></div>
+</div>
+
+<button onClick="{{ toggleMusic }}" style="position:fixed;top:26px;right:16px;z-index:70;display:flex;align-items:center;gap:9px;border:1px solid #2A3558;background:rgba(10,16,34,.72);backdrop-filter:blur(10px);color:#E8ECF5;padding:10px 14px;font-family:'IBM Plex Sans KR',sans-serif;font-weight:700;font-size:12px;cursor:pointer;box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(148,180,255,.08)" style-hover="background:rgba(94,230,255,.18);border-color:#5EE6FF;transform:translate(-2px,-2px);box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(148,180,255,.08)">
+  <span style="display:flex;align-items:flex-end;gap:3px;height:13px">{{ eqBars }}</span>
+  <span>{{ musicLabel }}</span>
+</button>
+<div style="position:fixed;top:80px;right:16px;z-index:70;max-width:220px">{{ musicHint }}</div>
+{{ confetti }}
+
+<section data-screen-label="Hero" style="position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:120px 20px 70px;overflow:hidden">
+  <div data-grid="1" style="position:absolute;inset:-12% -10%;background-image:linear-gradient(#060A141c 2px,transparent 2px),linear-gradient(90deg,#060A141c 2px,transparent 2px);background-size:48px 48px;pointer-events:none"></div>
+  <div data-anim="1" data-float="0.22" style="position:absolute;left:7%;top:19%;width:38px;height:38px;background:#FF5FA2;border:1px solid rgba(255,255,255,.35);box-shadow:0 0 26px rgba(255,95,162,.6);animation:floaty 6s ease-in-out infinite;--r:-10deg"></div>
+  <div data-anim="1" data-float="-0.3" style="position:absolute;right:9%;top:27%;width:30px;height:30px;background:#5EE6FF;border:1px solid rgba(255,255,255,.35);box-shadow:0 0 26px rgba(94,230,255,.6);animation:floaty 7.5s ease-in-out .5s infinite;--r:12deg"></div>
+  <div data-anim="1" data-float="0.16" style="position:absolute;left:13%;bottom:17%;width:34px;height:34px;background:#A78BFA;border:1px solid rgba(255,255,255,.35);box-shadow:0 0 26px rgba(167,139,250,.6);animation:stepspin 5s steps(1) infinite"></div>
+  <div data-anim="1" data-float="-0.18" style="position:absolute;right:12%;bottom:21%;width:24px;height:24px;background:#E8ECF5;box-shadow:0 0 22px rgba(232,236,245,.5);animation:floaty 8s ease-in-out 1s infinite"></div>
+
+  <p style="position:relative;z-index:1;margin:0 0 22px;font-family:'Press Start 2P',monospace;font-size:clamp(9px,2.3vw,12px);color:#FF5FA2;animation:rise .7s both">SECTOR 09-16 · 진입 허가</p>
+  <h1 style="position:relative;z-index:1;margin:0;text-align:center;font-family:'Press Start 2P',monospace;font-weight:400;line-height:1.3;font-size:clamp(1.5rem,7vw,4.4rem);animation:rise .9s .08s both">
+    <span style="display:block">HAPPY</span>
+    <span style="display:block;color:#5EE6FF;text-shadow:0 0 18px rgba(94,230,255,.65),0 0 54px rgba(94,230,255,.35),0 0 90px rgba(167,139,250,.3)">BIRTHDAY</span>
+  </h1>
+  <p style="position:relative;z-index:1;margin:28px 0 0;font-size:clamp(1.1rem,4.4vw,1.9rem);font-weight:700;animation:rise .9s .16s both">{{ heroName }}</p>
+  <p style="position:relative;z-index:1;margin:8px 0 0;font-size:clamp(.85rem,3vw,1rem);opacity:.6;font-weight:600;animation:rise .9s .2s both">{{ dateLabel }} · 좌표 고정 · 이 우주선의 유일한 선장</p>
+  <div style="position:relative;z-index:1;margin-top:38px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;animation:rise 1s .26s both">{{ countdown }}</div>
+  <p data-anim="1" style="position:relative;z-index:1;margin:56px 0 0;font-family:'Press Start 2P',monospace;font-size:10px;opacity:.6;animation:blink 1.6s steps(1) infinite">▼ 관측 시작</p>
+</section>
+
+<section data-kiss="1" data-screen-label="Meeting" style="position:relative;z-index:1;height:150svh;border-top:1px solid #2A3558">
+  <div style="position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center">
+    <div data-grid2="1" style="position:absolute;inset:-12% -10%;background-image:linear-gradient(#060A1414 2px,transparent 2px),linear-gradient(90deg,#060A1414 2px,transparent 2px);background-size:48px 48px;pointer-events:none"></div>
+    <p style="position:relative;z-index:1;margin:0 0 6px;font-family:'Press Start 2P',monospace;font-size:10px;color:#FF5FA2">제1장 · 관측되지 않은 두 입자</p>
+    <h2 data-kisstitle="1" style="position:relative;z-index:1;margin:0 0 clamp(30px,8vh,70px);text-align:center;font-size:clamp(1.5rem,5.4vw,2.8rem);font-weight:700;line-height:1.3;letter-spacing:-.02em">내가 선물이야 &gt;.&lt;</h2>
+    <div style="position:relative;z-index:1;width:100%;height:clamp(140px,26vh,240px)">
+      <div style="position:absolute;left:0;right:0;bottom:36px;height:6px;background:#060A14;opacity:.12"></div>
+      <div data-boy="1" style="position:absolute;left:50%;bottom:42px;transform:translateX(-50%)">{{ boy }}</div>
+      <div data-girl="1" style="position:absolute;left:50%;bottom:42px;transform:translateX(-50%)">{{ girl }}</div>
+      <div data-hearts="1" style="position:absolute;left:50%;bottom:120px;transform:translateX(-50%);opacity:0;transition:opacity .3s ease">{{ hearts }}</div>
+    </div>
+    <p data-kisshint="1" style="position:relative;z-index:1;margin:clamp(24px,5vh,48px) 0 0;font-family:'Press Start 2P',monospace;font-size:10px;opacity:.5">파동함수 수렴중...</p>
+  </div>
+</section>
+
+<section data-screen-label="Party" style="position:relative;z-index:1;min-height:78svh;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden;background:rgba(6,10,20,.55);border-top:1px solid #2A3558;border-bottom:1px solid #2A3558">
+  <div data-band="1" style="position:absolute;top:50%;left:-18%;width:172%;transform:translateY(-50%);display:flex;gap:20px;opacity:.5">
+    <div style="flex:1 1 0;aspect-ratio:4/5;border:1px solid rgba(232,236,245,.28);overflow:hidden;background:#0C1226"><image-slot id="bd-p1" shape="rect" placeholder="사진" fit="cover"></image-slot></div>
+    <div style="flex:1 1 0;aspect-ratio:4/5;border:1px solid rgba(232,236,245,.28);overflow:hidden;background:#0C1226;margin-top:36px"><image-slot id="bd-p2" shape="rect" placeholder="사진" fit="cover"></image-slot></div>
+    <div style="flex:1 1 0;aspect-ratio:4/5;border:1px solid rgba(232,236,245,.28);overflow:hidden;background:#0C1226"><image-slot id="bd-p3" shape="rect" placeholder="사진" fit="cover"></image-slot></div>
+    <div style="flex:1 1 0;aspect-ratio:4/5;border:1px solid rgba(232,236,245,.28);overflow:hidden;background:#0C1226;margin-top:36px"><image-slot id="bd-p4" shape="rect" placeholder="사진" fit="cover"></image-slot></div>
+    <div style="flex:1 1 0;aspect-ratio:4/5;border:1px solid rgba(232,236,245,.28);overflow:hidden;background:#0C1226"><image-slot id="bd-p5" shape="rect" placeholder="사진" fit="cover"></image-slot></div>
+  </div>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,#060A14f2,#060A14b8 45%,#060A14f7);pointer-events:none"></div>
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:clamp(18px,4vh,34px);padding:clamp(50px,9vw,90px) 20px;pointer-events:none">
+    <div style="position:relative;z-index:1;height:72px;width:min(300px,70vw)">{{ partyHearts }}</div>
+    <div style="display:flex;align-items:flex-end;gap:clamp(10px,3vw,22px)">{{ partyCouple }}</div>
+    <p style="margin:0;color:#E8ECF5;font-family:'Press Start 2P',monospace;font-size:clamp(9px,2.4vw,12px);line-height:2;text-align:center">뒤는 우리가 지나온 궤적<br /><span style="color:#A78BFA">관측하면 붕괴하니까 그냥 봐줘</span></p>
+  </div>
+</section>
+
+<section data-screen-label="Letter" style="position:relative;z-index:1;padding:clamp(70px,10vw,140px) 20px;overflow:hidden">
+  <div data-float="-0.06" data-side="1" style="position:absolute;left:-6vw;top:12%;width:clamp(72px,16vw,210px);aspect-ratio:3/4;border:1px solid #2A3558;box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(148,180,255,.08);transform:rotate(-7deg);background:#111730;overflow:hidden"><image-slot id="bd-g2" shape="rect" placeholder="사진" fit="cover"></image-slot></div>
+  <div data-float="0.08" data-side="1" style="position:absolute;right:-6vw;bottom:10%;width:clamp(72px,16vw,210px);aspect-ratio:3/4;border:1px solid #2A3558;box-shadow:0 0 0 1px rgba(255,95,162,.4), 0 18px 44px rgba(255,95,162,.14);transform:rotate(6deg);background:#111730;overflow:hidden"><image-slot id="bd-g3" shape="rect" placeholder="사진" fit="cover"></image-slot></div>
+
+  <div style="position:relative;z-index:1;max-width:660px;margin:0 auto;text-align:center">
+    <p data-reveal="1" style="margin:0 0 14px;font-family:'Press Start 2P',monospace;font-size:10px;color:#FF5FA2">편지 한 통</p>
+    <h2 data-reveal="1" style="margin:0 0 32px;font-size:clamp(1.7rem,5.6vw,3rem);font-weight:700;line-height:1.25;letter-spacing:-.02em">먼저 이거부터 읽어</h2>
+    <sc-if value="{{ letterClosed }}" hint-placeholder-val="{{ true }}">
+      <button data-anim="1" onClick="{{ openLetter }}" style="position:relative;z-index:1;display:block;margin:0 auto;width:min(100%,400px);aspect-ratio:3/2;border:1px solid #2A3558;background:#A78BFA;cursor:pointer;box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(148,180,255,.08);overflow:hidden;animation:hop 3.4s ease-in-out infinite" style-hover="transform:translate(-2px,-2px);box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(148,180,255,.08)">
+        <span style="position:absolute;top:0;left:0;right:0;height:64%;background:#111730;clip-path:polygon(0 0,100% 0,50% 100%);border-bottom:1px solid #2A3558"></span>
+        <span style="position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);width:44px;height:44px;background:#FF5FA2;border:1px solid #2A3558;display:flex;align-items:center;justify-content:center;color:#E8ECF5;font-family:'Press Start 2P',monospace;font-size:13px">♥</span>
+        <span style="position:absolute;bottom:14px;left:0;right:0;font-family:'Press Start 2P',monospace;font-size:10px">OPEN</span>
+      </button>
+    </sc-if>
+    <sc-if value="{{ letterOpen }}" hint-placeholder-val="{{ false }}">
+      <article style="animation:pop .5s both;text-align:left;background:#0A1020;border:1px solid #2A3558;box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(148,180,255,.08);padding:clamp(24px,5vw,42px)">
+        <p style="margin:0 0 22px;font-family:'Press Start 2P',monospace;font-size:clamp(.78rem,2.9vw,.95rem);color:#FF5FA2;line-height:1.5">{{ letterTo }}</p>
+        <p style="margin:0 0 18px;line-height:2;font-size:clamp(.95rem,2.6vw,1.05rem);text-wrap:pretty">생일 축하해. 말로 하면 또 대충 넘길 것 같아서 적어둔다.</p>
+        <p style="margin:0 0 18px;line-height:2;font-size:clamp(.95rem,2.6vw,1.05rem);opacity:.45;border-left:4px solid #A78BFA;padding-left:16px;text-wrap:pretty">[여기에 하고 싶은 말 — 세 문장이면 충분함]</p>
+        <p style="margin:0 0 18px;line-height:2;font-size:clamp(.95rem,2.6vw,1.05rem);opacity:.45;border-left:4px solid #5EE6FF;padding-left:16px;text-wrap:pretty">[올해 같이 하고 싶은 것 한 가지]</p>
+        <p style="margin:0;line-height:2;font-size:clamp(.95rem,2.6vw,1.05rem);text-wrap:pretty">우리는 뭘 열심히 하는 커플은 아니다. 근데 같이 있으면 제일 편하다. 그거 하나로 충분하다고 생각해. 앞으로도 같이 게으르게, 오래.</p>
+        <p style="margin:30px 0 0;text-align:right;font-weight:700">— {{ sender }}</p>
+      </article>
+    </sc-if>
+  </div>
+</section>
+
+<div style="background:rgba(6,10,20,.62);color:#E8ECF5;border-top:1px solid #2A3558;border-bottom:1px solid #2A3558;padding:14px 0;overflow:hidden;white-space:nowrap">
+  <div data-anim="1" data-drift="0.35" style="display:inline-flex;gap:32px;animation:marquee 32s linear infinite;font-family:'Press Start 2P',monospace;font-size:clamp(.7rem,2.5vw,1.05rem);align-items:center">
+    <span>생일 축하해</span><span style="color:#A78BFA">★</span><span>게으름뱅이 문파 · 총인원 2명</span><span style="color:#FF5FA2">♥</span><span>오늘 하루 왕 대접</span><span style="color:#5EE6FF">◆</span>
+    <span>생일 축하해</span><span style="color:#A78BFA">★</span><span>게으름뱅이 문파 · 총인원 2명</span><span style="color:#FF5FA2">♥</span><span>오늘 하루 왕 대접</span><span style="color:#5EE6FF">◆</span>
+  </div>
+</div>
+
+<section data-screen-label="Dashboard" style="padding:clamp(60px,9vw,120px) 20px;max-width:1060px;margin:0 auto">
+  <p data-reveal="1" style="margin:0 0 14px;font-family:'Press Start 2P',monospace;font-size:10px;color:#FF5FA2">제2장 · 관측 기록</p>
+  <h2 data-reveal="1" style="margin:0 0 10px;font-size:clamp(1.7rem,5.6vw,3rem);font-weight:700;line-height:1.25;letter-spacing:-.02em">내공 수련 기록부</h2>
+  <p data-reveal="1" style="margin:0 0 28px;opacity:.6;font-size:14px;line-height:1.7">관측 주기 1y · 표본 1 · 관측자 1명 (나)</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(16px,2.6vw,24px)">
+    <div style="border:1px solid #2A3558;background:#080D1A;box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(148,180,255,.08);display:flex;flex-direction:column">
+    <div style="padding:12px 16px;border-bottom:1px solid #1B2440;display:flex;justify-content:space-between;align-items:baseline;gap:10px">
+      <span style="font-family:'Press Start 2P',monospace;font-size:9px;color:#DCE4F5">동행한 시간</span>
+      <span style="font-size:10px;color:#95A2C2">2^10 달성</span>
+    </div>
+    <div style="padding:clamp(16px,3vw,22px);flex:1;font-family:ui-monospace,Menlo,monospace"><div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'Press Start 2P',monospace;font-size:clamp(1.6rem,6vw,2.6rem);color:#5EE6FF">1,024</span><span style="font-size:12px;color:#95A2C2">일</span></div>
+      <p style="margin:12px 0 0;font-size:12px;line-height:1.8;color:#95A2C2">딱 2의 10제곱. 다음 관측 지점은 2,048일 — 그때까지 계약 자동 갱신.</p>
+      <div style="display:flex;align-items:flex-end;gap:3px;height:44px;margin-top:16px"><div style="flex:1;height:30%;background:#22305A;border-top:1px solid #5EE6FF"></div><div style="flex:1;height:38%;background:#22305A;border-top:1px solid #5EE6FF"></div><div style="flex:1;height:34%;background:#22305A;border-top:1px solid #5EE6FF"></div><div style="flex:1;height:46%;background:#22305A;border-top:1px solid #5EE6FF"></div><div style="flex:1;height:52%;background:#22305A;border-top:1px solid #5EE6FF"></div><div style="flex:1;height:48%;background:#22305A;border-top:1px solid #5EE6FF"></div><div style="flex:1;height:60%;background:#22305A;border-top:1px solid #5EE6FF"></div><div style="flex:1;height:58%;background:#22305A;border-top:1px solid #5EE6FF"></div><div style="flex:1;height:66%;background:#22305A;border-top:1px solid #5EE6FF"></div><div style="flex:1;height:74%;background:#22305A;border-top:1px solid #5EE6FF"></div><div style="flex:1;height:70%;background:#22305A;border-top:1px solid #5EE6FF"></div><div style="flex:1;height:82%;background:#22305A;border-top:1px solid #5EE6FF"></div><div style="flex:1;height:88%;background:#22305A;border-top:1px solid #5EE6FF"></div><div style="flex:1;height:96%;background:#22305A;border-top:1px solid #5EE6FF"></div></div></div>
+  </div>
+
+    <div style="border:1px solid #2A3558;background:#080D1A;box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(148,180,255,.08);display:flex;flex-direction:column">
+    <div style="padding:12px 16px;border-bottom:1px solid #1B2440;display:flex;justify-content:space-between;align-items:baseline;gap:10px">
+      <span style="font-family:'Press Start 2P',monospace;font-size:9px;color:#DCE4F5">주간 전음(傳音) 횟수</span>
+      <span style="font-size:10px;color:#95A2C2">msgs / day</span>
+    </div>
+    <div style="padding:clamp(16px,3vw,22px);flex:1;font-family:ui-monospace,Menlo,monospace"><div style="display:flex;align-items:flex-end;gap:6px;height:130px"><div style="display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;flex:1 1 0"><div style="width:100%;height:72%;background:#5EE6FF;border:1px solid #2A3558;min-height:4px"></div><span style="font-size:10px;color:#95A2C2">월</span></div><div style="display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;flex:1 1 0"><div style="width:100%;height:86%;background:#5EE6FF;border:1px solid #2A3558;min-height:4px"></div><span style="font-size:10px;color:#95A2C2">화</span></div><div style="display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;flex:1 1 0"><div style="width:100%;height:22%;background:#FF5FA2;border:1px solid #2A3558;min-height:4px"></div><span style="font-size:10px;color:#95A2C2">수</span></div><div style="display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;flex:1 1 0"><div style="width:100%;height:64%;background:#5EE6FF;border:1px solid #2A3558;min-height:4px"></div><span style="font-size:10px;color:#95A2C2">목</span></div><div style="display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;flex:1 1 0"><div style="width:100%;height:95%;background:#A78BFA;border:1px solid #2A3558;min-height:4px"></div><span style="font-size:10px;color:#95A2C2">금</span></div><div style="display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;flex:1 1 0"><div style="width:100%;height:100%;background:#A78BFA;border:1px solid #2A3558;min-height:4px"></div><span style="font-size:10px;color:#95A2C2">토</span></div><div style="display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;flex:1 1 0"><div style="width:100%;height:48%;background:#5EE6FF;border:1px solid #2A3558;min-height:4px"></div><span style="font-size:10px;color:#95A2C2">일</span></div></div>
+      <p style="margin:14px 0 0;font-size:12px;line-height:1.8;color:#95A2C2">수요일 급감 원인: <span style="color:#FF5FA2">야근</span>. 주말 스파이크는 정상 기류.</p></div>
+  </div>
+
+    <div style="border:1px solid #2A3558;background:#080D1A;box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(148,180,255,.08);display:flex;flex-direction:column">
+    <div style="padding:12px 16px;border-bottom:1px solid #1B2440;display:flex;justify-content:space-between;align-items:baseline;gap:10px">
+      <span style="font-family:'Press Start 2P',monospace;font-size:9px;color:#DCE4F5">답장 지연시간</span>
+      <span style="font-size:10px;color:#95A2C2">p99 / p50</span>
+    </div>
+    <div style="padding:clamp(16px,3vw,22px);flex:1;font-family:ui-monospace,Menlo,monospace"><div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'Press Start 2P',monospace;font-size:clamp(1.4rem,5.4vw,2.2rem);color:#A78BFA">4.2s</span><span style="font-size:12px;color:#95A2C2">p99</span></div>
+      <div style="margin-top:10px;font-size:12px;line-height:2;color:#DCE4F5">p50 &nbsp;0.8s<br />max &nbsp;6h 12m &nbsp;<span style="color:#95A2C2">(원인: 게임 중 · 재현 가능)</span><br />SLO &nbsp;99% &lt; 5s &nbsp;<span style="color:#5EE6FF">충족</span></div>
+      <p style="margin:14px 0 0;font-size:12px;line-height:1.8;color:#95A2C2">읽고 씹은 건 에러로 집계 안 함. 관측 안 했으면 없던 일.</p></div>
+  </div>
+
+    <div style="border:1px solid #2A3558;background:#080D1A;box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(148,180,255,.08);display:flex;flex-direction:column">
+    <div style="padding:12px 16px;border-bottom:1px solid #1B2440;display:flex;justify-content:space-between;align-items:baseline;gap:10px">
+      <span style="font-family:'Press Start 2P',monospace;font-size:9px;color:#DCE4F5">관측 알림</span>
+      <span style="font-size:10px;color:#95A2C2">3 active</span>
+    </div>
+    <div style="padding:clamp(16px,3vw,22px);flex:1;font-family:ui-monospace,Menlo,monospace"><div style="display:grid;gap:10px;font-size:12px;line-height:1.7">
+      <div style="display:flex;gap:10px;align-items:flex-start"><span style="flex:0 0 auto;background:#FF5FA2;color:#060A14;padding:2px 6px;font-weight:700">CRIT</span><span style="color:#DCE4F5">오늘 생일. 즉시 대응 필요. 온콜: 나 (평생 당번)</span></div>
+      <div style="display:flex;gap:10px;align-items:flex-start"><span style="flex:0 0 auto;background:#A78BFA;color:#060A14;padding:2px 6px;font-weight:700">WARN</span><span style="color:#DCE4F5">케이크 재고 0 → 진공에서 ASCII로 소환함</span></div>
+      <div style="display:flex;gap:10px;align-items:flex-start"><span style="flex:0 0 auto;background:#5EE6FF;color:#060A14;padding:2px 6px;font-weight:700">OK</span><span style="color:#DCE4F5">애정은 보존량. 총량 변하지 않음</span></div>
+      <div style="display:flex;gap:10px;align-items:flex-start"><span style="flex:0 0 auto;background:#22305A;color:#DCE4F5;padding:2px 6px;font-weight:700">INFO</span><span style="color:#95A2C2">uptime 99.98% · 다운타임 전부 감기 · 문파원 2명</span></div>
+    </div></div>
+  </div>
+  </div>
+</section>
+
+<section data-term="1" data-screen-label="Terminal cake" style="padding:clamp(60px,9vw,120px) 20px;max-width:920px;margin:0 auto">
+  <p data-reveal="1" style="margin:0 0 14px;font-family:'Press Start 2P',monospace;font-size:10px;color:#FF5FA2">제3장 · 케이크 소환</p>
+  <h2 data-reveal="1" style="margin:0 0 10px;font-size:clamp(1.7rem,5.6vw,3rem);font-weight:700;line-height:1.25;letter-spacing:-.02em">케이크는 진공에서 생성했어</h2>
+  <p data-reveal="1" style="margin:0 0 30px;opacity:.6;font-size:14px;line-height:1.7">칼로리 0, 의존성 0, 반감기 없음. 관측해도 안 붕괴함.</p>
+
+  <div style="border:1px solid #2A3558;box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(148,180,255,.08);background:#080D1A;overflow:hidden">
+    <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:#0D1326;border-bottom:1px solid #2A3558">
+      <span style="width:11px;height:11px;background:#FF5FA2"></span>
+      <span style="width:11px;height:11px;background:#A78BFA"></span>
+      <span style="width:11px;height:11px;background:#5EE6FF"></span>
+      <span style="margin-left:8px;font-family:'Press Start 2P',monospace;font-size:9px;color:#95A2C2">bash — birthday.sh</span>
+    </div>
+    <div style="padding:clamp(16px,3.4vw,26px);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:clamp(11px,2.6vw,13.5px);line-height:1.85;color:#DCE4F5;min-height:270px">
+      <div data-termout="1"></div>
+      <div data-termcake="1" style="opacity:0;transition:opacity .4s ease;margin-top:14px">
+        <div style="color:#A78BFA;white-space:pre;overflow-x:auto">{{ flames }}</div>
+        <pre style="margin:0;color:#5EE6FF;white-space:pre;overflow-x:auto">{{ cake }}</pre>
+        <div style="margin-top:18px;display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+          <button onClick="{{ blowCandles }}" style="border:1px solid #5EE6FF;background:transparent;color:#5EE6FF;padding:10px 14px;font-family:ui-monospace,Menlo,monospace;font-size:12px;cursor:pointer" style-hover="background:#5EE6FF;color:#080D1A">$ sudo blow --candles</button>
+          <span style="color:#95A2C2;font-size:12px">{{ blowNote }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Reasons" style="background:rgba(6,10,20,.62);color:#E8ECF5;border-top:1px solid #2A3558;border-bottom:1px solid #2A3558;padding:clamp(70px,10vw,130px) 20px">
+  <div style="max-width:900px;margin:0 auto">
+    <p style="margin:0 0 14px;font-family:'Press Start 2P',monospace;font-size:10px;color:#A78BFA">마지막 장 · 비급 100초식</p>
+    <h2 data-scale="1" style="margin:0 0 14px;font-size:clamp(1.7rem,5.6vw,3rem);font-weight:700;line-height:1.25;letter-spacing:-.02em">비급 100초식을 정리했는데<br />세다 보니 넘쳤다</h2>
+    <p style="margin:0 0 32px;opacity:.65;line-height:1.75;font-size:15px;max-width:480px">칸을 누르면 한 초식씩 전수된다. 하루에 다 익힐 필요 없다.</p>
+    <div style="display:grid;gap:24px">
+      <div style="border:1px solid rgba(232,236,245,.28);background:#0C1226;padding:clamp(20px,4vw,34px);min-height:172px;display:flex;flex-direction:column;justify-content:space-between;gap:20px">
+        <div>{{ card }}</div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px">
+          <button onClick="{{ draw }}" style="border:1px solid rgba(232,236,245,.28);background:#FF5FA2;color:#060A14;padding:12px 18px;font-family:'Press Start 2P',monospace;font-size:11px;cursor:pointer;box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(232,236,245,.22)" style-hover="transform:translate(-2px,-2px);box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(232,236,245,.22)">무작위 전수 ▶</button>
+          <span style="font-family:'Press Start 2P',monospace;font-size:10px;opacity:.65">{{ count }}</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(24px,1fr));gap:6px">{{ grid }}</div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:rgba(6,10,20,.66);color:#E8ECF5;padding:clamp(56px,9vw,104px) 20px;text-align:center">
+  <p style="margin:0 0 18px;font-family:'Press Start 2P',monospace;font-size:clamp(.85rem,3.6vw,1.6rem);line-height:1.6;color:#A78BFA">{{ outroLine }}</p>
+  <p style="margin:0 0 10px;opacity:.6;font-size:13px">{{ dateLabel }} · made by {{ sender }}</p>
+  <p style="margin:0 0 28px;color:#95A2C2;font-size:13px">다음 생에도 같은 파동함수로 만나자</p>
+  <a href="#top" style="display:inline-block;border:1px solid rgba(232,236,245,.28);padding:12px 20px;font-family:'Press Start 2P',monospace;font-size:10px;color:#E8ECF5" style-hover="background:#E8ECF5;color:#060A14">↑ 처음으로</a>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;name&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;지운&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;내용&quot;},&quot;sender&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;나&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;내용&quot;},&quot;birthday&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2026-09-16&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;내용&quot;},&quot;musicUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;music.mp3&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;음악&quot;},&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;reference&quot;,&quot;subtle&quot;],&quot;default&quot;:&quot;reference&quot;,&quot;tsType&quot;:&quot;'reference' | 'subtle'&quot;,&quot;section&quot;:&quot;모션&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#FF5FA2&quot;,&quot;options&quot;:[&quot;#FF5FA2&quot;,&quot;#A78BFA&quot;,&quot;#5EE6FF&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;색&quot;}}">
+const PRAISE = [
+  "웃을 때 눈이 먼저 웃는다.", "말 안 해도 먼저 챙긴다.", "화낼 만한 일에 한 번 참아준다.",
+  "내 얘기를 진짜로 듣는다.", "같이 있으면 아무것도 안 해도 괜찮아진다.", "맛있는 걸 내 앞으로 밀어준다.",
+  "이상한 농담을 아주 진지하게 한다.", "약속은 늦어도 지킨다.", "힘든 티를 안 낸다. 근데 다 보인다.",
+  "사진보다 실물이 낫다.", "잘 때 표정이 제일 평화롭다.", "내가 별거 아닌 걸로 신나면 같이 신나준다.",
+  "남 얘기를 함부로 안 한다.", "내가 틀렸을 때 부드럽게 알려준다.", "게으른데 필요한 순간엔 제일 빠르다.",
+  "목소리 낮아질 때가 제일 좋다.", "새로운 거에 겁을 안 낸다.", "지치면 지쳤다고 솔직하게 말한다.",
+  "미안하다고 먼저 말할 수 있다.", "고맙다는 말을 안 아낀다.", "작은 약속도 기억한다.",
+  "혼자 있는 시간도 잘 보낸다.", "우리 가족한테 예의 있다.", "친구들한테 오래 남는 사람이다.",
+  "먹을 때 제일 행복해 보인다.", "운전할 때 괜히 멋있다.", "계획 없이 하루를 잘 만든다.",
+  "내가 울면 말없이 옆에 있는다.", "쓸데없는 걸 오래 기억한다.", "취향이 확실하다.",
+  "이상한 데서 끈기가 있다. 무협 주인공 기질.", "안 보는 데서 더 착하다.", "잘못 인정하는 데 오래 안 걸린다.",
+  "우주 얘기할 때 목소리가 두 톤 올라간다.", "설명 잘한다. 양자역학도 내가 알아듣게 한다.", "같은 무협지를 세 번째 읽는다.",
+  "무거운 얘기를 가볍게 만들어준다.", "내가 제일 나 같을 수 있게 해준다.", "그냥, 너라서."
+];
+
+const BOY = [
+  "..KKKKK..",
+  ".KKKKKKK.",
+  ".KSSSSSK.",
+  ".KSBSBSK.",
+  ".KSSPSSK.",
+  "..KSSSK..",
+  ".TTTTTTT.",
+  "STTTTTTTS",
+  ".TTTTTTT.",
+  "..NNNNN..",
+  "..N...N..",
+  "..K...K.."
+];
+
+const GIRL = [
+  "..HHHHH..",
+  ".HHHHHHH.",
+  "HHSSSSSHH",
+  "HHSBSBSHH",
+  ".HSSPSSH.",
+  "..HSSSH..",
+  ".DDDDDDD.",
+  "SDDDDDDDS",
+  ".DDDDDDD.",
+  ".DDDDDDD.",
+  "..S...S..",
+  "..K...K.."
+];
+
+const PAL = { K: "#060A14", H: "#3A2A4E", S: "#F6C9A0", B: "#060A14", P: "#FF5FA2", T: "#5EE6FF", N: "#22305A", D: "#FF5FA2" };
+
+const CAKE = [
+  "   .-------------------------.",
+  "   |  H A P P Y   B I R T H  |",
+  "   |#########################|",
+  "   |  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  |",
+  "   |#########################|",
+  "   '-------------------------'",
+  "  =============================",
+  "",
+  "  cake v29.0.0  ·  진공에서 생성 · 반감기 없음"
+];
+
+class Component extends DCLogic {
+  state = { musicOn: false, note: "", letter: false, drawn: [], current: null, burst: 0, kissed: false, blown: false };
+
+  termLines() {
+    const name = this.props.name ?? "지운";
+    return [
+      { t: "$ ssh " + name + "@birthday.local", c: "#DCE4F5", d: 620 },
+      { t: "Last login: 작년 오늘, 같은 좌표. 그때도 야근중이었음.", c: "#95A2C2", d: 520 },
+      { t: "$ git log --author=\"" + name + "\" --since=\"1 year\" --oneline | wc -l", c: "#DCE4F5", d: 700 },
+      { t: "2,481   # 이 중 절반은 오후 11시 이후", c: "#95A2C2", d: 520 },
+      { t: "$ npm run birthday", c: "#DCE4F5", d: 620 },
+      { t: "> building cake...  ✓ 0 vulnerabilities, 1 애인 found", c: "#5EE6FF", d: 560 },
+      { t: "WARN  나이 컬럼 int8 → 오버플로우 걱정 없음. 아직.", c: "#A78BFA", d: 560 },
+      { t: "$ quantum measure --target=\"우리\"", c: "#DCE4F5", d: 620 },
+      { t: "state collapsed → |같이있음⟩   (확률 1.00, 오차 없음)", c: "#5EE6FF", d: 560 },
+      { t: "$ cat /dev/내공 | grep 경지", c: "#DCE4F5", d: 600 },
+      { t: "화경 돌파 · 다음 단계까지 필요: 잠 8시간, 치킨 1마리", c: "#A78BFA", d: 560 },
+      { t: "$ ./deploy.sh --env=prod --date=today", c: "#DCE4F5", d: 620 },
+      { t: "금요일 배포는 막았는데 생일 배포는 허용했습니다.", c: "#FF5FA2", d: 600 },
+      { t: "✓ deployed. p99 latency 0ms — 얽혀 있으면 거리랑 무관하니까", c: "#5EE6FF", d: 400 }
+    ];
+  }
+
+  typeTerm() {
+    if (this._typed) return;
+    this._typed = true;
+    const out = document.querySelector("[data-termout]");
+    const cake = document.querySelector("[data-termcake]");
+    if (!out) return;
+    const lines = this.termLines();
+    let i = 0;
+    const next = () => {
+      if (i >= lines.length) {
+        if (cake) cake.style.opacity = "1";
+        return;
+      }
+      const L = lines[i++];
+      const row = document.createElement("div");
+      row.style.color = L.c;
+      row.style.whiteSpace = "pre-wrap";
+      out.appendChild(row);
+      const full = L.t;
+      let k = 0;
+      const tick = () => {
+        k += Math.max(1, Math.round(full.length / 26));
+        row.textContent = full.slice(0, k);
+        if (k < full.length) { this._t1 = setTimeout(tick, 22); return; }
+        row.textContent = full;
+        this._t2 = setTimeout(next, L.d);
+      };
+      tick();
+    };
+    next();
+  }
+
+  blowCandles = () => this.setState(s => ({ blown: !s.blown, burst: s.blown ? s.burst : s.burst + 1 }));
+
+  sprite(map, px, flip) {
+    const shadows = [];
+    for (let y = 0; y < map.length; y++) {
+      for (let x = 0; x < map[y].length; x++) {
+        const c = map[y][x];
+        if (c === "." || !PAL[c]) continue;
+        shadows.push(x * px + "px " + y * px + "px 0 " + PAL[c]);
+      }
+    }
+    const w = map[0].length * px, h = map.length * px;
+    return React.createElement("span", {
+      style: {
+        display: "block", width: w, height: h, position: "relative",
+        filter: "drop-shadow(0 0 10px rgba(94,230,255,.35)) drop-shadow(0 0 22px rgba(167,139,250,.25))",
+        transform: flip ? "scaleX(-1)" : "none", transformOrigin: "center"
+      }
+    }, React.createElement("span", {
+      style: { display: "block", position: "absolute", left: 0, top: 0, width: px, height: px, boxShadow: shadows.join(",") }
+    }));
+  }
+
+  componentDidMount() {
+    const subtle = (this.props.motion ?? "reference") === "subtle";
+    if (subtle) document.querySelectorAll("[data-anim]").forEach(el => { el.style.animation = "none"; });
+
+    document.querySelectorAll("[data-words]").forEach(host => {
+      if (host.dataset.split) return;
+      host.dataset.split = "1";
+      const frag = document.createDocumentFragment();
+      Array.from(host.childNodes).forEach(node => {
+        if (node.nodeType === 3) {
+          node.textContent.split(/(\s+)/).forEach(t => {
+            if (!t.trim()) { frag.appendChild(document.createTextNode(t)); return; }
+            const s = document.createElement("span");
+            s.textContent = t;
+            s.dataset.word = "1";
+            s.style.display = "inline-block";
+            frag.appendChild(s);
+          });
+        } else {
+          const w = document.createElement("span");
+          w.dataset.word = "1";
+          w.style.display = "inline-block";
+          w.appendChild(node);
+          frag.appendChild(w);
+        }
+      });
+      host.innerHTML = "";
+      host.appendChild(frag);
+      Array.from(host.querySelectorAll("[data-word]")).forEach((s, i) => {
+        s.style.opacity = "0.14";
+        s.style.transform = subtle ? "none" : "translateY(14px)";
+        s.style.transition = "opacity .5s ease " + (i * 0.04).toFixed(2) + "s, transform .6s cubic-bezier(.2,.8,.2,1) " + (i * 0.04).toFixed(2) + "s";
+      });
+    });
+
+    const reveals = Array.from(document.querySelectorAll("[data-reveal]"));
+    reveals.forEach(el => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(26px)";
+      el.style.transition = "opacity .6s ease, transform .8s cubic-bezier(.2,.8,.2,1)";
+    });
+    this._io = new IntersectionObserver(es => {
+      es.forEach(e => {
+        if (!e.isIntersecting) return;
+        const t = e.target;
+        if (t.hasAttribute("data-words")) {
+          t.querySelectorAll("[data-word]").forEach(s => { s.style.opacity = "1"; s.style.transform = "translateY(0)"; });
+        } else {
+          t.style.opacity = "1";
+          t.style.transform = "translateY(0)";
+        }
+        this._io.unobserve(t);
+      });
+    }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });
+    reveals.concat(Array.from(document.querySelectorAll("[data-words]"))).forEach(el => this._io.observe(el));
+
+    // 좁은 화면: 편지 옆 사진이 본문을 덮지 않게 편지 아래로 내린다
+    if (window.innerWidth < 640) {
+      const sides = Array.from(document.querySelectorAll("[data-side]"));
+      const letterSec = document.querySelector("[data-screen-label='Letter']");
+      if (sides.length && letterSec) {
+        const row = document.createElement("div");
+        row.style.cssText = "position:relative;display:flex;gap:18px;justify-content:center;margin:44px auto 0;max-width:660px";
+        sides.forEach(el => {
+          el.removeAttribute("data-float");
+          el.style.position = "static";
+          el.style.width = "44%";
+          el.style.marginTop = "0";
+          row.appendChild(el);
+        });
+        letterSec.appendChild(row);
+      }
+    }
+
+    const term = document.querySelector("[data-term]");
+    if (term) {
+      this._tio = new IntersectionObserver(es => {
+        es.forEach(e => { if (e.isIntersecting) { this.typeTerm(); this._tio.disconnect(); } });
+      }, { threshold: 0.25 });
+      this._tio.observe(term);
+    }
+
+    let raf = 0;
+    this._onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const h = document.documentElement;
+        const y = h.scrollTop;
+        const vh = window.innerHeight;
+        const p = y / Math.max(1, h.scrollHeight - h.clientHeight);
+        const bar = document.querySelector("[data-bar]");
+        if (bar) bar.style.width = (p * 100).toFixed(2) + "%";
+
+        if (subtle) return;
+        const g = document.querySelector("[data-grid]");
+        if (g) g.style.transform = "translateY(" + (y * 0.12).toFixed(1) + "px)";
+        const g2 = document.querySelector("[data-grid2]");
+        if (g2) g2.style.transform = "translateX(" + (y * 0.05 % 48).toFixed(1) + "px)";
+        const zoom = document.querySelector("[data-zoom]");
+        if (zoom) {
+          const r = zoom.getBoundingClientRect();
+          const prog = Math.min(1, Math.max(0, 1 - (r.top + r.height) / (vh + r.height)));
+          zoom.style.transform = "scale(" + (1.16 - prog * 0.16).toFixed(3) + ")";
+        }
+        document.querySelectorAll("[data-float]").forEach(el => {
+          const f = parseFloat(el.getAttribute("data-float")) || 0;
+          el.style.marginTop = (y * f).toFixed(1) + "px";
+        });
+        document.querySelectorAll("[data-band]").forEach(el => {
+          const sec = el.parentElement;
+          if (!sec) return;
+          const r = sec.getBoundingClientRect();
+          const prog = Math.min(1, Math.max(0, 1 - (r.top + r.height) / (vh + r.height)));
+          const room = Math.max(0, el.offsetWidth - sec.offsetWidth);
+          el.style.transform = "translate(" + (-prog * room).toFixed(1) + "px,-50%)";
+        });
+        document.querySelectorAll("[data-drift]").forEach(el => {
+          const f = parseFloat(el.getAttribute("data-drift")) || 0;
+          el.style.marginLeft = (-y * f % 400).toFixed(1) + "px";
+        });
+        document.querySelectorAll("[data-tilt]").forEach(el => {
+          const t = parseFloat(el.getAttribute("data-tilt")) || 0;
+          el.style.transform = "rotate(" + (t * 0.9).toFixed(2) + "deg) translateY(" + (Math.sin(y / 400 + t) * 7).toFixed(1) + "px)";
+        });
+        document.querySelectorAll("[data-scale]").forEach(el => {
+          const r = el.getBoundingClientRect();
+          const prog = Math.min(1, Math.max(0, 1 - (r.top - vh * 0.18) / (vh * 0.7)));
+          el.style.transform = "scale(" + (0.9 + prog * 0.1).toFixed(3) + ")";
+          el.style.transformOrigin = "left center";
+        });
+      });
+    };
+    window.addEventListener("scroll", this._onScroll, { passive: true });
+    window.addEventListener("resize", this._onScroll);
+    this._onScroll();
+
+    // 만남 씬: 영역에 들어오면 서 있다가 다가가 뽀뽀 (스크롤 위치와 무관)
+    const scene = document.querySelector("[data-kiss]");
+    if (scene) {
+      const boy = document.querySelector("[data-boy]");
+      const girl = document.querySelector("[data-girl]");
+      const hearts = document.querySelector("[data-hearts]");
+      const hint = document.querySelector("[data-kisshint]");
+      const narrow = window.innerWidth < 640;
+      scene.style.height = narrow ? "108svh" : "112svh";
+      const stand = narrow ? 62 : 96;
+      const near = 25;
+      const set = (el, dir, off, lean, lift, dur) => {
+        if (!el) return;
+        el.style.transition = "transform " + dur + "ms cubic-bezier(.34,.9,.3,1)";
+        el.style.transform = "translate(calc(-50% " + dir + " " + off + "px)," + (-lift) + "px) rotate(" + (dir === "-" ? lean : -lean) + "deg)";
+      };
+      const idle = () => {
+        set(boy, "-", stand, 0, 0, 700);
+        set(girl, "+", stand, 0, 0, 700);
+        if (boy) boy.style.animation = subtle ? "none" : "walk 2.6s ease-in-out infinite";
+        if (girl) girl.style.animation = subtle ? "none" : "walk 2.6s ease-in-out .5s infinite";
+        if (hearts) hearts.style.opacity = "0";
+        if (hint) hint.style.opacity = ".5";
+        if (this.state.kissed) this.setState({ kissed: false });
+      };
+      const kiss = () => {
+        if (boy) boy.style.animation = "none";
+        if (girl) girl.style.animation = "none";
+        set(boy, "-", near, 9, 4, 900);
+        set(girl, "+", near, 9, 4, 900);
+        if (hearts) hearts.style.opacity = "1";
+        if (hint) hint.style.opacity = "0";
+        if (!this.state.kissed) this.setState(s => ({ kissed: true, burst: s.burst + 1 }));
+      };
+      idle();
+      this._kio = new IntersectionObserver(es => {
+        es.forEach(e => {
+          clearTimeout(this._kt);
+          if (e.isIntersecting) {
+            this._kt = setTimeout(kiss, 900);
+          } else {
+            this._kt = setTimeout(idle, 200);
+          }
+        });
+      }, { threshold: 0.55 });
+      this._kio.observe(scene);
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this._kt);
+    if (this._kio) this._kio.disconnect();
+    clearTimeout(this._t1);
+    clearTimeout(this._t2);
+    if (this._tio) this._tio.disconnect();
+    if (this._io) this._io.disconnect();
+    window.removeEventListener("scroll", this._onScroll);
+    window.removeEventListener("resize", this._onScroll);
+    if (this._audio) this._audio.pause();
+  }
+
+  toggleMusic = () => {
+    const url = this.props.musicUrl ?? "music.mp3";
+    if (!this._audio) { this._audio = new Audio(url); this._audio.loop = true; this._audio.volume = 0.55; }
+    if (this.state.musicOn) { this._audio.pause(); this.setState({ musicOn: false, note: "" }); return; }
+    const pr = this._audio.play();
+    if (pr && pr.then) {
+      pr.then(() => this.setState({ musicOn: true, note: "" }))
+        .catch(() => this.setState({ musicOn: false, note: "음악 파일 \"" + url + "\"을 프로젝트에 올리면 여기서 바로 재생돼요." }));
+    } else this.setState({ musicOn: true });
+  };
+
+  openLetter = () => this.setState(s => ({ letter: true, burst: s.burst + 1 }));
+
+  reveal = (i) => this.setState(s => (s.drawn.indexOf(i) > -1 ? { current: i } : { drawn: s.drawn.concat([i]), current: i }));
+
+  draw = () => {
+    const left = [];
+    for (let i = 0; i < 100; i++) if (this.state.drawn.indexOf(i) === -1) left.push(i);
+    if (!left.length) { this.setState({ current: 0 }); return; }
+    this.reveal(left[Math.floor(Math.random() * left.length)]);
+  };
+
+  renderVals() {
+    const R = React.createElement;
+    const S = this.state;
+    const name = this.props.name ?? "지운";
+    const sender = this.props.sender ?? "나";
+    const dateStr = this.props.birthday ?? "2026-09-16";
+    const accent = this.props.accent ?? "#FF5FA2";
+    const praise = i => PRAISE[i % PRAISE.length];
+    const px = typeof window !== "undefined" && window.innerWidth < 520 ? 5 : 7;
+
+    const d = new Date(dateStr + "T00:00:00");
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    let next = new Date(today.getFullYear(), d.getMonth(), d.getDate());
+    if (next < today) next = new Date(today.getFullYear() + 1, d.getMonth(), d.getDate());
+    const days = Math.round((next - today) / 86400000);
+    const dateLabel = (d.getMonth() + 1) + "월 " + d.getDate() + "일";
+
+    const chip = (big, small, i) => R("div", { key: i, style: { border: "1px solid rgba(148,180,255,.22)", background: "rgba(10,16,34,.66)", backdropFilter: "blur(10px)", boxShadow: "0 18px 44px rgba(0,0,0,.55)", padding: "15px 20px", minWidth: 120 } },
+      R("div", { style: { fontFamily: "'Press Start 2P', monospace", fontSize: "clamp(1rem,4.2vw,1.7rem)", lineHeight: 1.15, color: i % 2 ? "#A78BFA" : "#5EE6FF", textShadow: "0 0 18px " + (i % 2 ? "rgba(167,139,250,.55)" : "rgba(94,230,255,.55)") } }, big),
+      R("div", { style: { marginTop: 9, fontSize: 11, fontWeight: 700, letterSpacing: ".1em", color: "#95A2C2" } }, small));
+
+    const countdown = days === 0
+      ? [chip("TODAY", "바로 오늘", 0), chip("100%", "주인공 지수", 1)]
+      : [chip("D-" + days, "생일까지", 0), chip((next.getMonth() + 1) + "." + next.getDate(), "그날", 1)];
+
+    const card = S.current !== null
+      ? R("div", { key: S.current, style: { animation: "pop .4s both" } },
+          R("div", { style: { fontFamily: "'Press Start 2P', monospace", fontSize: 10, color: "#A78BFA", marginBottom: 14 } }, "NO." + String(S.current + 1).padStart(3, "0")),
+          R("p", { style: { margin: 0, fontSize: "clamp(1.1rem,3.6vw,1.6rem)", fontWeight: 700, lineHeight: 1.5, textWrap: "pretty" } }, praise(S.current)))
+      : R("p", { style: { margin: 0, fontSize: "clamp(1rem,3.2vw,1.35rem)", fontWeight: 600, lineHeight: 1.6, opacity: .5 } }, "아래 칸을 누르거나 랜덤 버튼을 눌러봐. 무작위 전수도 인연이지.");
+
+    const grid = [];
+    for (let i = 0; i < 100; i++) {
+      const got = S.drawn.indexOf(i) > -1;
+      grid.push(R("button", {
+        key: i, onClick: () => this.reveal(i), title: "NO." + (i + 1),
+        style: {
+          aspectRatio: "1", border: "2px solid " + (got ? accent : "#1F2A47"),
+          background: S.current === i ? "#A78BFA" : got ? accent : "transparent",
+          cursor: "pointer", padding: 0, font: "inherit",
+          transition: "background .2s ease, border-color .2s ease"
+        }
+      }));
+    }
+
+    const confetti = S.burst > 0 ? R("div", { key: S.burst, style: { position: "fixed", inset: 0, pointerEvents: "none", zIndex: 65, overflow: "hidden" } },
+      Array.from({ length: 34 }).map((_, i) => R("span", {
+        key: i,
+        style: {
+          position: "absolute", top: "-6vh", left: (i * 3 + (i % 5) * 1.7) % 100 + "%",
+          width: 10 + (i % 3) * 4, height: 10 + (i % 3) * 4,
+          background: [accent, "#A78BFA", "#5EE6FF", "#060A14"][i % 4],
+          border: "1px solid #2A3558",
+          animation: "fall " + (2.2 + (i % 5) * 0.45).toFixed(2) + "s linear " + (i * 0.05).toFixed(2) + "s forwards"
+        }
+      }))) : null;
+
+    const hearts = R("div", { style: { display: "flex", gap: 10, alignItems: "flex-end" } },
+      [0, 1, 2].map(i => R("span", {
+        key: i,
+        style: {
+          width: 12, height: 12, background: i === 1 ? accent : "#A78BFA", border: "1px solid #2A3558",
+          animation: "heartup " + (1.6 + i * 0.3).toFixed(2) + "s ease-out " + (i * 0.25).toFixed(2) + "s infinite"
+        }
+      })));
+
+    const eqBars = [0, 1, 2].map(i => R("span", {
+      key: i,
+      style: {
+        width: 3, background: S.musicOn ? accent : "#060A14",
+        height: S.musicOn ? [13, 8, 11][i] : 5,
+        transition: "height .25s ease",
+        animation: S.musicOn ? "hop " + (0.5 + i * 0.14).toFixed(2) + "s ease-in-out infinite" : "none"
+      }
+    }));
+
+    const musicHint = S.note
+      ? R("p", { style: { margin: 0, background: "#060A14", color: "#E8ECF5", border: "1px solid #2A3558", padding: "10px 12px", fontSize: 12, lineHeight: 1.6 } }, S.note)
+      : null;
+
+    return {
+      heroName: name + "의 생일",
+      dateLabel, countdown, card, grid, confetti, eqBars, musicHint, hearts,
+      cake: CAKE.join("\n"),
+      flames: S.blown
+        ? R("span", { style: { color: "#95A2C2" } }, "        '    '    '    '\n        |    |    |    |")
+        : R("span", null, [0, 1, 2, 3].map(i => R("span", { key: i, style: { display: "inline-block", animation: "flicker " + (0.5 + i * 0.13).toFixed(2) + "s steps(2) infinite" } }, i === 0 ? "        i" : "    i")).concat([R("span", { key: "w", style: { color: "#95A2C2" } }, "\n        |    |    |    |")])),
+      blowNote: S.blown ? "candles: 0 · 소원은 이 우주 어딘가 큐에 들어갔습니다" : "촛불 4개 실행중 · 관측 전이므로 켜짐/꺼짐 중첩 상태",
+      blowCandles: this.blowCandles,
+      boy: this.sprite(BOY, px, false),
+      partyCouple: [
+        R("span", { key: "b", style: { display: "block", animation: "walk .62s steps(2) infinite" } }, this.sprite(BOY, px, false)),
+        R("span", { key: "h", style: { display: "block", width: 14, height: 14, background: accent, border: "1px solid rgba(232,236,245,.28)", marginBottom: 30, animation: "hop .82s ease-in-out infinite" } }),
+        R("span", { key: "g", style: { display: "block", animation: "walk .62s steps(2) .31s infinite" } }, this.sprite(GIRL, px, true))
+      ],
+      partyHearts: Array.from({ length: 7 }).map((_, i) => R("span", {
+        key: i,
+        style: {
+          position: "absolute", bottom: 0, left: (6 + i * 14) + "%",
+          width: 10 + (i % 3) * 3, height: 10 + (i % 3) * 3,
+          background: [accent, "#A78BFA", "#5EE6FF"][i % 3], border: "1px solid rgba(232,236,245,.28)",
+          animation: "heartup " + (2.4 + (i % 4) * 0.5).toFixed(2) + "s ease-out " + (i * 0.34).toFixed(2) + "s infinite"
+        }
+      })),
+      girl: this.sprite(GIRL, px, true),
+      meetTitle: S.kissed ? "여기까지 오는 데 오래 걸렸지" : "스크롤하면 만난다",
+      count: S.drawn.length + "  / 100초식 전수",
+      musicLabel: S.musicOn ? "MUSIC ON" : "MUSIC OFF",
+      letterTo: name + "에게",
+      outroLine: name + ", 생일 축하해",
+      sender,
+      letterOpen: S.letter,
+      letterClosed: !S.letter,
+      toggleMusic: this.toggleMusic,
+      openLetter: this.openLetter,
+      draw: this.draw
+    };
+  }
+}
+</script>
+</body>
+</html>

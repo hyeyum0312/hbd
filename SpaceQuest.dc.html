@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>지운의 새로운 퀘스트가 도착했습니다 🚀</title>
+  <meta name="description" content="PLAYER 지운 · 새로운 모험을 시작하시겠습니까?">
+  <meta property="og:title" content="지운의 새로운 퀘스트가 도착했습니다 🚀">
+  <meta property="og:description" content="PLAYER 지운 · 새로운 모험을 시작하시겠습니까?">
+  <meta property="og:image" content="https://hbd-jiun.vercel.app/assets/jiun-quest-og-v1.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hbd-jiun.vercel.app/">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="별과 작은 행성, 우주선 사이에 서 있는 지운 픽셀 캐릭터">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="지운의 새로운 퀘스트가 도착했습니다 🚀">
+  <meta name="twitter:description" content="PLAYER 지운 · 새로운 모험을 시작하시겠습니까?">
+  <meta name="twitter:image" content="https://hbd-jiun.vercel.app/assets/jiun-quest-og-v1.png">
+  <link rel="canonical" href="https://hbd-jiun.vercel.app/">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #04060F; color: #DCE4F5; font-family: "IBM Plex Sans KR", sans-serif; overflow-x: hidden; image-rendering: pixelated; }
+  a { color: #7CE7FF; text-decoration: none; }
+  a:hover { color: #FFD166; }
+  ::selection { background: rgba(124,231,255,.28); }
+  @keyframes stars { from { background-position: 0 0, 0 0, 0 0; } to { background-position: -600px -420px, -1100px -700px, -300px -240px; } }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @keyframes bob2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes thrust { 0%,100% { opacity: .35; transform: scaleX(.7); } 50% { opacity: 1; transform: scaleX(1.2); } }
+  @keyframes caret { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+  @keyframes glitch { 0%,100% { transform: translate(0,0); filter: none; } 20% { transform: translate(-3px,1px); filter: hue-rotate(40deg); } 40% { transform: translate(3px,-2px); } 60% { transform: translate(-2px,-1px); filter: hue-rotate(-30deg); } 80% { transform: translate(2px,2px); } }
+  @keyframes portal { from { transform: rotate(0) scale(1); } to { transform: rotate(360deg) scale(1.06); } }
+  @keyframes popin { 0% { transform: translateY(14px) scale(.9); opacity: 0; } 70% { transform: translateY(0) scale(1.03); } 100% { transform: translateY(0) scale(1); opacity: 1; } }
+  @keyframes burst { 0% { transform: translate(0,0) scale(.4); opacity: 1; } 100% { transform: translate(var(--tx,0),var(--ty,0)) scale(1); opacity: 0; } }
+  @keyframes levelpulse { 0%,100% { text-shadow: 0 0 12px rgba(255,209,102,.6); } 50% { text-shadow: 0 0 30px rgba(255,209,102,1); } }
+  @keyframes shake { 0%,100% { transform: translateX(0) } 20% { transform: translateX(-3px) } 40% { transform: translateX(3px) } 60% { transform: translateX(-2px) } 80% { transform: translateX(2px) } }
+  @keyframes heartrise { 0% { transform: translateY(6px) scale(.6); opacity: 0 } 25% { opacity: 1 } 100% { transform: translateY(-46px) scale(1.1); opacity: 0 } }
+  @keyframes fwork { 0% { transform: scale(.2); opacity: 1 } 100% { transform: scale(1); opacity: 0 } }
+  .earth-memory { position:absolute; inset:24px 8px 4px; display:flex; align-items:center; justify-content:center; }
+  .earth-diorama { width:100%; height:100%; max-width:640px; overflow:hidden; }
+  .mem-breathe { animation:mem-breathe 2.8s steps(2,end) infinite; }
+  .mem-step { animation:mem-step .6s steps(2,end) infinite; }
+  .mem-stroll { animation:mem-stroll 3s linear both; }
+  .mem-arrive { animation:mem-arrive 1.6s steps(8,end) both; }
+  .mem-tv { animation:mem-tv 1s steps(2,end) infinite; }
+  .mem-zzz { animation:mem-zzz 2.4s steps(4,end) infinite; }
+  .mem-lounge { animation:mem-lounge 2.6s steps(3,end) infinite; }
+  .mem-eat { animation:mem-step 1.2s steps(2,end) infinite; }
+  .mem-steam { animation:mem-zzz 2s steps(4,end) infinite; }
+  .mem-late { animation-delay:-.3s; }
+  @keyframes mem-breathe { 50% { transform:translateY(-1px); } }
+  @keyframes mem-step { 50% { transform:translateY(-2px); } }
+  @keyframes mem-stroll { from { transform:translateX(-12px); } to { transform:translateX(0); } }
+  @keyframes mem-arrive { from { transform:translateX(54px); opacity:0; } to { transform:translateX(0); opacity:1; } }
+  @keyframes mem-tv { 50% { transform:translateX(2px); opacity:.65; } }
+  @keyframes mem-zzz { from { transform:translateY(0); opacity:0; } 30% { opacity:.8; } to { transform:translateY(-6px); opacity:0; } }
+  @keyframes mem-lounge { 50% { transform:translate(2px,1px); } }
+  .earth-diorama { animation:mem-scene-in .4s steps(4,end) both; }
+  .mem-office-glance { animation:mem-office-glance 2.8s steps(2,end) infinite; }
+  .mem-time-wipe { animation:mem-time-wipe 1.8s steps(5,end) both; }
+  @keyframes mem-office-glance { 0%,35%,100% { transform:translateY(0); } 45%,65% { transform:translateY(-2px); } }
+  @keyframes mem-time-wipe { 0% { opacity:0; } 45% { opacity:1; } 100% { opacity:0; } }
+  @keyframes mem-scene-in { from { opacity:.3; } to { opacity:1; } }
+  @keyframes ending-heart { 0%,75%,100% { opacity:0; transform:translateY(3px) scale(.8); } 20%,40% { opacity:.85; transform:translateY(-3px) scale(1); } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important; } }
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#04060F"/><circle cx="30" cy="28" r="2" fill="#fff"/><circle cx="92" cy="22" r="1.6" fill="#BFD8FF"/><circle cx="70" cy="96" r="1.8" fill="#fff"/><g fill="#7CE7FF"><rect x="52" y="40" width="16" height="6"/><rect x="46" y="46" width="28" height="6"/><rect x="40" y="52" width="40" height="6"/></g><g fill="#FFD166"><rect x="44" y="58" width="6" height="6"/><rect x="70" y="58" width="6" height="6"/></g><text x="60" y="84" font-family="monospace" font-size="11" fill="#FFD166" text-anchor="middle">QUEST</text></svg></template>
+
+<div style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(900px 600px at 78% 8%,rgba(60,90,200,.22),transparent 65%),radial-gradient(700px 520px at 12% 82%,rgba(120,60,180,.18),transparent 62%)"></div>
+<div data-stars="1" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.8;background-image:radial-gradient(1.5px 1.5px at 20% 30%,#fff,transparent),radial-gradient(1.2px 1.2px at 70% 60%,#BFD8FF,transparent),radial-gradient(1.8px 1.8px at 45% 80%,#fff,transparent);background-size:420px 420px,260px 260px,620px 620px;animation:stars 140s linear infinite"></div>
+
+<div style="position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;align-items:center;padding:clamp(12px,2.5vw,26px);gap:clamp(10px,1.6vh,16px)">
+
+  <div style="width:100%;max-width:960px;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;border:2px solid #24406E;background:rgba(7,12,26,.82);padding:10px 12px;font-family:'Press Start 2P',monospace;font-size:clamp(7px,1.9vw,9px);color:#9FB6E0">
+    <span>PLAYER <span style="color:#7CE7FF">{{ playerName }}</span></span>
+    <span>CLASS DEVELOPER</span>
+    <span>LV <span style="color:#FFD166">{{ level }}</span></span>
+    <span style="display:flex;align-items:center;gap:6px">HP <span style="display:inline-flex;gap:2px">{{ hpBar }}</span></span>
+    <span style="display:flex;align-items:center;gap:6px">COFFEE <span style="display:inline-flex;gap:2px">{{ coffeeBar }}</span></span>
+    <span>SLEEP <span style="color:#FF7BA8">{{ sleepLabel }}</span></span>
+  </div>
+
+  <div data-stage="1" style="position:relative;width:100%;max-width:960px;flex:0 0 auto;height:clamp(260px,44svh,440px);border:2px solid #24406E;background:linear-gradient(180deg,rgba(6,10,22,.6),rgba(4,7,16,.86));overflow:hidden;display:flex;align-items:center;justify-content:center">
+    <div style="position:absolute;top:10px;left:12px;font-family:'Press Start 2P',monospace;font-size:clamp(7px,1.9vw,9px);color:#5E7BB0">{{ sceneLabel }}</div>
+    {{ scene }}
+    {{ toast }}
+  </div>
+
+  <div style="width:100%;max-width:960px;border:2px solid #24406E;background:rgba(7,12,26,.9);padding:clamp(14px,3vw,22px);min-height:clamp(150px,22svh,200px);display:flex;flex-direction:column;justify-content:space-between;gap:14px">
+    <div>
+      <div style="font-family:'Press Start 2P',monospace;font-size:clamp(7px,1.9vw,9px);color:#FFD166;margin-bottom:12px">{{ chapterLabel }}</div>
+      {{ dialogueLog }}
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">{{ choices }}</div>
+  </div>
+
+  <p style="margin:2px 0 6px;font-family:'Press Start 2P',monospace;font-size:7px;color:#3E5686">SPACE DEVELOPER : BIRTHDAY QUEST · 1994.09.16</p>
+</div>
+
+{{ overlay }}
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:820},&quot;name&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;지운&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;플레이어&quot;},&quot;partner&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;혜연&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;플레이어&quot;}}">
+/* TODO(pixel art): 스프라이트는 임시로 코드 픽셀맵으로 그렸습니다.
+   실제 도트 이미지(성호 캐릭터 32x32, 우주선 24x16, 행성 48x48, 버그몬스터 16x16,
+   무림 검객 16x24)가 준비되면 SPRITES 맵 대신 <img> 로 교체하면 됩니다. */
+const PAL = {
+  K: "#0A0E1A", S: "#F2C9A0", H: "#2B2438", V: "#7CE7FF", W: "#E8EEFB",
+  B: "#2B4C8C", C: "#1B3160", G: "#6BE3A8", R: "#FF7BA8", Y: "#FFD166", M: "#8A5CF6", D: "#132244"
+};
+
+const HERO = [
+  "...WWWWW...",
+  "..WVVVVVW..",
+  "..WSSSSSW..",
+  "..WSKSKSW..",
+  "...WSSSW...",
+  "..BBBBBBB..",
+  ".SBBVVVBBS.",
+  "..BBBBBBB..",
+  "..CC...CC..",
+  "..CC...CC..",
+  "..KK...KK.."
+];
+
+const SHIP = [
+  ".....WW.....",
+  "....WVVW....",
+  "...WVVVVW...",
+  "..WVBBBBVW..",
+  ".WBBBBBBBBW.",
+  "WBB.BBBB.BBW",
+  ".YY......YY."
+];
+
+const BUG = [
+  ".R.....R.",
+  "..RRRRR..",
+  ".RKRRRKR.",
+  "RRRRRRRRR",
+  ".RRRRRRR.",
+  "..R...R.."
+];
+
+const SWORD = [
+  "....W....",
+  "...WVW...",
+  "...WSW...",
+  "..MMMMM..",
+  ".SMMMMMS.",
+  "..MM.MM..",
+  "..KK.KK.."
+];
+
+const GIRL = [
+  "...HHHHH...",
+  "..HHHHHHH..",
+  "..HSSSSSH..",
+  "..HSKSKSH..",
+  "...HSSSH...",
+  "..RRRRRRR..",
+  ".SRRRRRRRS.",
+  "..RRRRRRR..",
+  "..RRRRRRR..",
+  "...S...S...",
+  "...KK.KK..."
+];
+
+const PLANET = [
+  "....YYYYYY....",
+  "..YYGGYYGGYY..",
+  ".YGGYYGGYYGGY.",
+  "YYGGYYYYGGYYYY",
+  "YGGYYGGYYGGYYG",
+  "YYYGGYYGGYYGGY",
+  ".YYGGYYYYGGYY.",
+  "..YYGGYYGGYY..",
+  "....YYYYYY...."
+];
+
+const BOOT = [
+  "SYSTEM BOOTING...",
+  "PLAYER DATA LOADING...",
+  "PLAYER DETECTED.",
+  "",
+  "NAME  : 지운",
+  "CLASS : DEVELOPER",
+  "BIRTH : 1994.09.16",
+  "LEVEL : 31",
+  "",
+  "TRAITS",
+  "[ 야근 내성 +99 ]",
+  "[ 무협 탐독 +100 ]",
+  "[ 양자역학 설명 +80 ]",
+  "[ 수면욕 +999 ]",
+  "[ 여자친구에게 사랑받음 +∞ ]"
+];
+
+const ENEMIES = [
+  { n: "BUG MONSTER", m: "재현이 안 되던 그 버그. 오늘은 잡혔다.", exp: 20 },
+  { n: "LEGACY CODE", m: "주석에 \"건드리지 마세요\"만 적혀 있었다.", exp: 20 },
+  { n: "URGENT DEPLOY", m: "금요일 저녁 6시. 사유: \"간단한 수정\".", exp: 30 }
+];
+
+const MURIM_STATS = [
+  ["내공", 8, "#7CE7FF"], ["코딩력", 9, "#6BE3A8"], ["무협력", 10, "#FFD166"],
+  ["체력", 3, "#FF7BA8"], ["수면욕", 10, "#8A5CF6"]
+];
+
+const MEMORY = [
+  { id:"noticed", text:"...!", hud:"EARTH", alt:"지구에 혼자 서 있던 지운이 무언가를 발견한다" },
+  { id:"arrival", text:"새로운 플레이어를 발견했다.", hud:"PLAYER FOUND", alt:"반대편에 나타난 혜연과 지운이 잠시 서로를 바라본다" },
+  { id:"loading", text:"EARTH LOG FOUND...\nMEMORY DATA LOADING...", hud:"REWIND", alt:"지운과 혜연의 첫 만남으로 기억을 되감는다" },
+  { id:"office", text:"FIRST ENCOUNTER\nLOCATION : OFFICE\n같은 회사, 내 앞자리였던 사람.", hud:"DISTANCE : 책상 하나", alt:"위쪽의 혜연과 아래쪽의 지운이 서로 마주 보는 두 책상에서 각자의 노트북으로 일한다" },
+  { id:"time", text:"TIME PASSED...", hud:"TIME PASSED", alt:"같은 회사에서 시작한 두 사람의 시간이 흘러간다" },
+  { id:"coffee", text:"회사 밖에서도, 커피 한 잔.", hud:"AFTER WORK / COFFEE", alt:"회사 밖 작은 카페 테이블에서 커피를 마시는 지운과 혜연" },
+  { id:"commute", text:"퇴근길도 어느새 나란히.", hud:"AFTER WORK / WALK", alt:"퇴근 후 동네 길을 나란히 걷는 지운과 혜연" },
+  { id:"party", text:"PARTY MEMBER ADDED : 혜연 ♥", hud:"PARTY UPDATED", alt:"함께 걷던 두 사람이 멈추고 혜연의 파티 합류 알림이 나타난다" },
+  { id:"playtime", text:"EARTH PLAYTIME INCREASED...", hud:"OUR ORDINARY DAYS", alt:"파티가 된 두 사람의 시간이 평범한 일상으로 이어진다" },
+  { id:"nap", text:"QUEST : 데이트하기\nRESULT : 각자 낮잠 잤음.", hud:"01 / NAP TIME", alt:"작은 방의 침대와 소파에서 각자 낮잠 자는 지운과 혜연" },
+  { id:"tv", text:"같이 TV 보는 중.\n리모컨만 바쁨.", hud:"02 / TV TIME", alt:"소파에 나란히 앉아 TV를 보는 지운과 혜연" },
+  { id:"lounge", text:"CURRENT QUEST : 아무것도 안 하기\nSTATUS : 성공", hud:"03 / DO NOTHING", alt:"소파와 침대에 편하게 늘어져 뒹굴거리는 두 사람" },
+  { id:"meal", text:"QUEST UPDATED\n밥 먹기", hud:"04 / DINNER TIME", alt:"작은 테이블에서 함께 밥 먹는 지운과 혜연" },
+  { id:"walk", text:"BONUS QUEST : 산책하기\n소화도 시킬 겸, 동네 한 바퀴.", hud:"05 / EVENING WALK", alt:"가로등과 나무가 있는 밤 동네를 나란히 산책하는 두 사람" },
+  { id:"reflection", text:"그렇게 별거 없는 날들이\n하나씩 쌓이는 중.", hud:"EARTH PLAYTIME +", alt:"산책을 멈추고 별이 보이는 밤하늘 아래 나란히 선 두 사람" },
+  { id:"saved", text:"MEMORY DATA SAVED ✓", hud:"BACK TO PRESENT", alt:"두 사람의 평범한 일상이 저장되고 현재의 생일로 돌아온다" }
+];
+
+const SCRIPT = {
+  boot: { label: "CHAPTER 0 — SYSTEM BOOT", lines: [] },
+  space: {
+    label: "CHAPTER 1 — SPACE DEVELOPER",
+    lines: ["좌표 입력 완료. 목적지는 아직 비밀이다.", "QUEST : SURVIVE ANOTHER YEAR", "가는 길에 뭔가 잔뜩 튀어나온다."]
+  },
+  quantum: {
+    label: "CHAPTER 2 — QUANTUM ZONE",
+    lines: ["WARNING : QUANTUM ANOMALY DETECTED.", "관측하기 전 지운의 상태는\n[ 코딩 중 ]·[ 무협 읽는 중 ]·[ 자는 중 ]\n세 상태가 동시에 중첩되어 있다.", "관측하시겠습니까?"]
+  },
+  murim: {
+    label: "CHAPTER 3 — MURIM DIMENSION",
+    lines: ["UNKNOWN DIMENSION DETECTED.", "미확인 차원입니다.\n들어가시겠습니까?"]
+  },
+  planet: {
+    label: "CHAPTER 4 — FINAL PLANET",
+    lines: ["멀리 이상하게 밝은 행성이 하나 보인다.", "목적지 : BIRTHDAY PLANET 09.16", "착륙합니다."]
+  },
+  memory: { label: "EARTH MEMORY — 지구에서 보낸 시간", lines: [] },
+  message: { label: "FINAL MESSAGE", lines: [] }
+};
+
+class Component extends DCLogic {
+  // The regular URL keeps the final version; ?sample selects the short letter.
+  isSample = typeof window !== "undefined" &&
+    new URLSearchParams(window.location.search).has("sample");
+
+  state = {
+    ch: "boot", li: 0, typed: "", dialogueHistory: [], combatMessage: "", bootN: 0, exp: 0, killed: 0, lastKill: null,
+    observed: null, observing: false, ach: null, murimIn: false, glitch: false, tripped: false,
+    level: 31, birthdayLog: false, burst: 0, ended: false, coffee: 2, endPhase: 0, endingBusy: false, fw: 0, spaceIntroAuto: false, memoryPhase: 0
+  };
+
+  _backHistory = [];
+
+  componentDidMount() { this._previousState = this.state; this.play(); }
+  componentWillUnmount() { clearInterval(this._iv); [this._to,this._to2,this._fwt,this._e1,this._e2,this._e3,this._readTimer,this._achTimer,this._audioTimer].forEach(clearTimeout);
+    if (this._audio) { this._audio.close().catch(() => {}); this._audio = null; }
+  }
+
+  // 모든 대사에 같은 출력/읽기 잠금을 적용한다.
+  play() {
+    const full = this.renderVals(true).fullDialogue;
+    const sameChapter = this._dialogueChapter === this.state.ch;
+    if (sameChapter && full === this._dialogueTarget) {
+      this._messageSnapshot = { state: { ...this.state, typed: full }, full };
+      return;
+    }
+    if (this._messageSnapshot && this._messageSnapshot.full &&
+        this._messageSnapshot.state.ch !== "boot") {
+      this._backHistory.push(this._messageSnapshot);
+    }
+    const history = sameChapter ? this.state.dialogueHistory : [];
+    const previous = sameChapter ? this.state.typed : "";
+    const dialogueHistory = previous ? [...history, previous] : history;
+    if (!sameChapter) this._followDialogue = true;
+    this._dialogueChapter = this.state.ch;
+    this._dialogueTarget = full;
+    this._typing = true;
+    clearInterval(this._iv);
+    clearTimeout(this._readTimer);
+    const chars = Array.from(full);
+    let k = 0;
+    this._messageSnapshot = { state: { ...this.state, typed: full, dialogueHistory }, full };
+    this.setState({ typed: "", dialogueHistory });
+    const finish = () => {
+      clearInterval(this._iv);
+      this._readTimer = setTimeout(() => {
+        this._typing = false;
+        // 소개는 자동 진행하고, 전투 결과 출력 후에는 다음 클릭을 기다린다.
+        if (this.state.ch === "space" && this.state.spaceIntroAuto &&
+            this.state.li < SCRIPT.space.lines.length) {
+          this.setState(s => ({ li: s.li + 1,
+            ...(s.li + 1 === SCRIPT.space.lines.length ? { typed: "", dialogueHistory: [] } : {}) }));
+        }
+        else if (this.state.lastKill) this.setState({ lastKill: null });
+        else {
+          this.setState({ typed: full });
+        }
+      }, 700);
+    };
+    if (!chars.length) { finish(); return; }
+    this._iv = setInterval(() => {
+      k += 1;
+      this.setState({ typed: chars.slice(0, k).join("") });
+      if (k >= chars.length) finish();
+    }, this.state.ch === "message" ? 18 : 26);
+  }
+
+  bootStep = () => {
+    if (this.state.bootN >= BOOT.length) return;
+    this.setState(s => ({ bootN: s.bootN + 1 }), () => {
+      if (this.state.bootN < BOOT.length) { this._to = setTimeout(this.bootStep, 160); }
+    });
+  };
+
+  componentDidUpdate() {
+    // dc-runtime passes previous props only; retain our own state snapshot.
+    const prev = this._previousState || this.state;
+    this._previousState = this.state;
+    if (prev.ch !== this.state.ch && this.state.ch === "message") this.runEnding();
+    const dialogueKeys = ["ch", "li", "bootN", "lastKill", "killed", "tripped",
+      "exp", "combatMessage", "observing", "observed", "murimIn", "level", "birthdayLog", "endPhase", "endingBusy", "memoryPhase"];
+    if (dialogueKeys.some(key => prev[key] !== this.state[key])) this.play();
+  }
+
+  back = () => {
+    const snapshot = this._backHistory.pop();
+    if (!snapshot) return;
+    this.componentWillUnmount(); // Cancel old scene timers before restoring it.
+    this._typing = false;
+    this._reviewing = true;
+    this._followDialogue = true;
+    const restored = { ...snapshot.state, typed: snapshot.full, spaceIntroAuto: false };
+    this._dialogueChapter = restored.ch;
+    this._dialogueTarget = snapshot.full;
+    this._messageSnapshot = { state: restored, full: snapshot.full };
+    this._previousState = restored;
+    this.setState(restored);
+  };
+
+  go = (ch) => {
+    if (ch === "memory") this.prepareAudio();
+    if (ch === "message") this.playFanfare();
+    this.setState({ ch, li: 0, typed: "", dialogueHistory: [], endPhase: 0, endingBusy: ch === "message",
+      memoryPhase: 0, spaceIntroAuto: ch === "space",
+      level: ch === "message" ? 32 : this.state.level });
+
+  };
+
+  skipEnding = () => {
+    [this._e1, this._e2, this._e3,this._readTimer,this._achTimer].forEach(clearTimeout);
+    this._followDialogue = true;
+    this.setState({ endPhase: 3, typed: "", dialogueHistory: [] });
+  };
+
+  next = () => {
+    const sc = SCRIPT[this.state.ch];
+    clearInterval(this._iv);
+    if (this.state.ch === "space" && this.state.li < sc.lines.length) { this.setState(s => ({ li: s.li + 1 })); return; }
+    if (this.state.li < sc.lines.length - 1) { this.setState(s => ({ li: s.li + 1 })); return; }
+    this.setState({ typed: sc.lines[this.state.li] });
+    const order = ["boot", "space", "quantum", "murim", "planet", "memory", "message"];
+    const i = order.indexOf(this.state.ch);
+    if (i < order.length - 1) this.go(order[i + 1]);
+  };
+
+  fight = () => {
+    const e = ENEMIES[this.state.killed];
+    if (!e || this.state.combatMessage || this.renderVals(true).locked) return;
+    this._followDialogue = true;
+    this.setState(s => ({
+      typed: "", dialogueHistory: [],
+      killed: s.killed + 1, exp: Math.min(100, s.exp + e.exp), lastKill: e,
+      combatMessage: e.n + " defeated.  +" + e.exp + " EXP\n" + e.m +
+        (s.killed === ENEMIES.length - 1 ? "\n적은 전부 정리됐다. 좋은 기억도 경험치가 된다." : ""),
+      coffee: Math.min(8, s.coffee + 2)
+    }));
+    clearTimeout(this._to2);
+  };
+
+  nextEnemy = () => {
+    if (!this.state.combatMessage || !ENEMIES[this.state.killed] || this.renderVals(true).locked) return;
+    this._followDialogue = true;
+    this.setState({ combatMessage: "", lastKill: null, typed: "", dialogueHistory: [] });
+  };
+
+  observe = () => {
+    this._followDialogue = true;
+    this.setState({ observing: true, glitch: true, typed: "", dialogueHistory: [] });
+    this._to = setTimeout(() => this.setState({
+      observing: false, glitch: false, observed: "자는 중",
+      ach: "SCHRÖDINGER'S DEVELOPER"
+    }), 1400);
+    this._achTimer = setTimeout(() => this.setState({ ach: null }), 5200);
+  };
+
+  enterMurim = () => {
+    this._followDialogue = true;
+    this.setState({ glitch: true, typed: "", dialogueHistory: [] });
+    this._to = setTimeout(() => this.setState({ glitch: false, murimIn: true }), 700);
+  };
+
+  trip = () => {
+    if (this.state.tripped || this.renderVals(true).locked) return;
+    this._followDialogue = true;
+    this.setState(s => ({ typed: "", dialogueHistory: [], exp: Math.min(999, s.exp + 30), tripped: true, lastKill: { n: "함께한 여행", exp: 30, m: "아직 정리 안 된 여행 사진이 절반이다." } }));
+    clearTimeout(this._to2);
+  };
+
+  openEarthLog = () => {
+    this._followDialogue = true;
+    this.setState({ typed: "", dialogueHistory: [], birthdayLog: true });
+  };
+
+  prepareAudio() {
+    if (typeof window === "undefined") return;
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) return;
+    try {
+      if (!this._audio || this._audio.state === "closed") this._audio = new Audio();
+      this._audio.resume().catch(() => {});
+    } catch (_) {}
+  }
+
+  playFanfare() {
+    if (typeof window === "undefined") return;
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) return;
+    try {
+      const audio = this._audio && this._audio.state !== "closed" ? this._audio : (this._audio = new Audio());
+      audio.resume().then(() => {
+        if (this._audio !== audio || audio.state === "closed") return;
+        const start = audio.currentTime;
+        [523.25,659.25,783.99,1046.5].forEach((frequency,i) => {
+          const tone=audio.createOscillator(), gain=audio.createGain(), at=start+i*.13;
+          tone.type="square"; tone.frequency.value=frequency;
+          gain.gain.setValueAtTime(.018,at);
+          gain.gain.exponentialRampToValueAtTime(.001,at+.2);
+          tone.connect(gain); gain.connect(audio.destination);
+          tone.start(at); tone.stop(at+.22);
+        });
+        this._audioTimer = setTimeout(() => {
+          if (this._audio === audio) this._audio = null;
+          audio.close().catch(() => {});
+        }, 1000);
+      }).catch(() => {});
+    } catch (_) { /* The visual celebration also works without browser audio. */ }
+  }
+
+  runEnding() {
+    [this._e1, this._e2, this._e3,this._readTimer,this._achTimer].forEach(clearTimeout);
+    const step = (p, ms) => setTimeout(() => this.setState({ endPhase: p, typed: "", dialogueHistory: [] }), ms);
+    this._e1 = step(1, 2800);    // 혜연 등장 + 걸어옴
+    this._e2 = step(2, 4300);   // 뽀뽀
+    this._e3 = setTimeout(() => this.setState({ endingBusy: false }), 6000);
+    // Phase 2 waits for NEXT after the kiss animation has finished.
+  }
+
+  advanceMemory = () => {
+    if (this.state.ch !== "memory" || this.renderVals(true).locked) return;
+    if (this.state.memoryPhase >= MEMORY.length - 1) { this.go("message"); return; }
+    this._followDialogue = true;
+    this.setState(s => ({ memoryPhase: s.memoryPhase + 1, typed: "", dialogueHistory: [] }));
+  };
+
+  memoryScene(phase) {
+    const R = React.createElement;
+    const item = MEMORY[phase] || {id:"earth",hud:"EARTH · 1994.09.16",alt:"지구에 처음 접속한 지운 픽셀 캐릭터가 혼자 서 있다"};
+    const id = item.id;
+    const rect = (x,y,width,height,fill,extra = {}) => R("rect", { x,y,width,height,fill,...extra });
+    const words = (x,y,text,color = "#E8D6AF",size = 5) => R("text", {
+      x,y,fill:color,fontSize:size,fontFamily:"'Press Start 2P',monospace"
+    },text);
+    const person = (who,x,y,pose = "stand",motion = "") => {
+      let map = who === "hero" ? HERO : GIRL;
+      if (pose === "back-sit") map = ["...WWWWW...","..WVVVVVW..","..WVVVVVW..","..WVVVVVW..","...WWWWW...",...map.slice(5)];
+      const seated = pose === "sit" || pose === "back-sit";
+      const rows = seated ? [...map.slice(0,8),map[10]] : map;
+      return R("g", { transform: "translate("+x+" "+y+")" },
+        R("g", { className: motion },
+          R("g", { transform: pose === "sleep" ? "rotate(-90) translate(-16.5 -16.5)" : "translate(-16.5 -"+rows.length*3+")" },
+            rows.flatMap((row,yy) => Array.from(row).map((c,xx) => c === "." ? null :
+              rect(xx*3,yy*3,3,pose === "sleep" && yy===3 && c==="K" ? 1 : 3,PAL[c], { key:xx+"-"+yy })))))
+      );
+    };
+    const skyStars = [[26,23],[61,34],[90,17],[155,26],[202,18],[227,41],[128,42]];
+    const stars = skyStars.map(([x,y],i) => rect(x,y,i%3===0?2:1,1,i%2?"#7CE7FF":"#E8D6AF",{key:i}));
+    const outdoor = ["commute","party","playtime","walk","reflection","saved"].includes(id);
+    const progress = R("g", {"aria-hidden":true}, [9,10,11,12,13].map((p,i) => rect(99+i*12,159,8,2,
+      phase >= p ? "#FFD166" : "#334151",{key:p})));
+    let content;
+    if (["earth","noticed","arrival","loading"].includes(id)) {
+      const together = id==="arrival" || id==="loading";
+      content = R("g",null,
+        rect(0,0,256,168,"#080F20"),stars,
+        rect(0,123,256,45,"#1A3937"),rect(0,122,256,4,"#476A50"),
+        rect(16,117,32,5,"#324F40"),rect(205,115,22,8,"#324F40"),
+        person("hero",together?86:112,123,"stand",id==="noticed"?"mem-office-glance":"mem-breathe"),
+        together ? R("g",{className:id==="arrival"?"mem-arrive":""},person("girl",182,123,"stand","mem-breathe")) : null,
+        id==="noticed" ? words(106,78,"...!","#FFD166",7) : null,
+        words(22,151,item.hud,"#7CE7FF",5),
+        id==="loading" ? R("g",{className:"mem-time-wipe"},rect(0,0,256,168,"#ADC2CC",{opacity:.12})) : null);
+    } else if (id === "office" || id === "time") {
+      const laptop = (x,y,facing) => R("g", { "data-office-laptop":facing },
+        rect(x,y,24,10,"#202C3F"),rect(x+2,y+2,20,6,facing==="up"?"#647386":"#739CAC"),
+        facing==="down" ? R("g",null,rect(x+4,y+3,8,1,"#C7DEC2"),rect(x+4,y+5,13,1,"#C7DEC2")) : rect(x+11,y+4,2,2,"#AAB6BE"),
+        rect(x-2,facing==="up"?y-4:y+10,28,4,"#A0A8AB"));
+      content=R("g",null,
+        rect(0,0,256,168,"#111B2B"),rect(21,24,214,136,"#263647"),
+        rect(25,28,206,47,"#617078"),rect(25,75,206,81,"#45545E"),
+        [95,115,135,155].map(y=>rect(25,y,206,1,"#4D5D66",{key:y})),
+        rect(35,37,40,29,"#263A50"),rect(39,41,32,21,"#94B2BD"),rect(53,41,3,21,"#D0D3C9"),
+        rect(180,38,37,20,"#35465A"),rect(184,42,12,2,"#C4CCBA"),rect(184,48,24,2,"#91A4AF"),
+        words(92,20,"FIRST ENCOUNTER", "#AACACD",4),
+        // Across the desk, not side by side: Hyeyeon above, Jiun below.
+        R("g",{"data-office-chair":"hyeyeon"},rect(111,39,34,31,"#33465A"),rect(116,42,24,23,"#62758A")),
+        person("girl",128,78,"sit","mem-office-glance"),
+        R("g",{"data-office-desk":"hyeyeon"},rect(83,79,90,16,"#C4A582"),rect(83,92,90,3,"#8D735F")),
+        laptop(116,82,"up"),
+        rect(155,81,7,8,"#DFD5BC"),rect(162,83,3,4,"#B7ADA0"),
+        R("g",{"data-office-desk":"jiun"},rect(83,99,90,16,"#C4A582"),rect(83,112,90,3,"#8D735F")),
+        laptop(116,100,"down"),rect(94,104,7,7,"#8BC1C4"),rect(92,106,2,3,"#69949B"),
+        rect(157,105,10,5,"#E0D9C3"),rect(159,106,6,1,"#9DADAE"),
+        R("g",{"data-office-chair":"jiun"},rect(111,124,34,29,"#33465A"),rect(116,128,24,21,"#62758A")),
+        person("hero",128,150,"back-sit","mem-breathe"),
+        rect(192,129,18,16,"#A47E64"),rect(198,113,4,18,"#507F6D"),rect(190,113,8,9,"#6A9679"),rect(201,105,9,13,"#6A9679"),
+        id==="time" ? R("g", {className:"mem-time-wipe"},
+          Array.from({length:24},(_,i)=>rect(25+i%8*26,28+Math.floor(i/8)*42,26,42,"#D5B38C",{key:i,opacity:i%3===0?.32:.12}))) : null);
+    } else if (id === "coffee") {
+      content = R("g",null,
+        rect(0,0,256,168,"#172332"),rect(22,30,212,112,"#75635D"),
+        rect(28,36,200,59,"#AD9279"),rect(28,95,200,47,"#705951"),
+        rect(43,43,69,42,"#334758"),rect(47,47,61,34,"#5A7483"),rect(75,47,4,34,"#C5AD92"),
+        words(145,63,"COFFEE","#F4DCAB",6),
+        rect(61,112,35,24,"#475D64"),rect(160,112,35,24,"#475D64"),
+        person("hero",82,126,"sit","mem-breathe"),person("girl",174,126,"sit","mem-breathe"),
+        rect(106,105,44,8,"#D6B28A"),rect(112,113,5,23,"#463E40"),rect(140,113,5,23,"#463E40"),
+        [115,136].map(x=>R("g",{key:x},rect(x,98,7,7,"#EAD9B8"),rect(x+7,100,3,3,"#EAD9B8"),
+          R("g",{className:"mem-steam"},rect(x+3,90,1,4,"#EAD9B8")))),
+        words(53,155,"ONE MORE COFFEE?","#D8BC99",5));
+    } else if (outdoor) {
+      content = R("g",null,
+        rect(0,0,256,168,"#0B1329"),rect(0,63,256,39,"#182B3B"),stars,
+        rect(197,25,10,10,"#E8D6AF"),rect(202,23,8,9,"#0B1329"),
+        [8,29,187,215].map((x,i)=>R("g",{key:x},
+          rect(x,64+i%2*8,25,36,"#263445"),rect(x+5,73+i%2*8,5,6,"#AB986E"))),
+        rect(0,99,256,45,"#243B37"),rect(0,111,256,27,"#6B6261"),rect(0,138,256,13,"#172B2D"),
+        [24,214].map(x=>R("g",{key:x},rect(x+8,76,4,34,"#4C3C37"),
+          rect(x,64,21,15,"#28524A"),rect(x+4,57,14,10,"#376350"))),
+        R("polygon",{points:"51,68 29,115 81,115",fill:"#F6CE83",opacity:.1}),
+        rect(53,61,3,51,"#63717A"),rect(46,60,17,4,"#39424D"),rect(48,64,13,5,"#FFD79A"),
+        R("g", { className: ["walk","commute"].includes(id) ? "mem-stroll" : "", key:["walk","commute"].includes(id)?"walking":"stopped" },
+          person("hero",106,122,"stand",["walk","commute"].includes(id)?"mem-step":"mem-breathe"),
+          person("girl",147,122,"stand",["walk","commute"].includes(id)?"mem-step mem-late":"mem-breathe")),
+        words(18,151,["walk","commute"].includes(id) ? (id==="commute" ? "AFTER WORK" : "BONUS QUEST : WALK") : "EARTH PLAYTIME +", "#9EC4AE",4),
+        id==="party" ? R("g",null,rect(37,40,182,25,"#182638"),rect(37,40,182,2,"#FFD166"),words(49,56,"PARTY MEMBER ADDED","#FFD166",6)) : null,
+        ["walk","reflection","saved"].includes(id) ? progress : null);
+    } else {
+      const nap=id==="nap", tv=id==="tv", lazy=id==="lounge", meal=id==="meal";
+      content=R("g",null,
+        rect(0,0,256,168,"#111A2B"),
+        // One small room: warm walls, a wooden floor, two places to curl up.
+        rect(16,30,224,119,"#0A101C"),rect(20,34,216,111,"#4F4248"),
+        rect(24,38,208,67,"#655057"),rect(24,105,208,36,"#99745F"),
+        [113,122,131].map(y=>rect(24,y,208,1,"#7F5F54",{key:y})),
+        [56,111,172,214].map((x,i)=>rect(x,106+i%2*9,1,26-i%2*8,"#7F5F54",{key:x})),
+        rect(34,47,49,39,"#CDA486"),rect(38,51,41,31,"#182C45"),
+        rect(42,57,2,2,"#F1D59D"),rect(70,62,1,2,"#BCD7DE"),rect(62,55,4,4,"#F1D59D"),
+        rect(57,51,3,31,"#CDA486"),rect(38,68,41,3,"#CDA486"),
+        rect(29,87,59,4,"#3C333E"),
+        rect(94,53,27,24,"#CDA486"),rect(97,56,21,18,"#3F5658"),
+        rect(102,63,5,5,"#C6A870"),rect(107,58,7,10,"#78947C"),
+        R("polygon",{points:"144,61 126,107 170,107",fill:"#FFDBA2",opacity:.14}),
+        rect(146,58,3,47,"#B99976"),rect(136,53,23,5,"#F4CCA0"),rect(140,48,15,5,"#F4CCA0"),rect(140,104,16,3,"#4A3940"),
+        rect(179,49,44,31,"#222A3A"),rect(183,53,36,22,tv?"#657C91":"#344353"),
+        tv ? R("g",{className:"mem-tv",key:"tv"},rect(187,65,7,6,"#92B3A8"),rect(197,59,9,12,"#D9BE95"),rect(211,66,4,5,"#EDC78F")) : rect(198,71,5,1,"#657180"),
+        rect(198,80,5,6,"#222A3A"),rect(184,86,34,4,"#B88E70"),
+        rect(30,105,91,28,"#536875"),rect(34,99,83,18,"#758590"),
+        rect(30,112,8,21,"#8E9A9E"),rect(113,112,8,21,"#8E9A9E"),rect(39,117,73,12,"#687B87"),
+        rect(34,133,5,5,"#3C333E"),rect(112,133,5,5,"#3C333E"),
+        rect(145,106,76,28,"#BE977D"),rect(149,101,68,22,"#DAC3A0"),
+        rect(153,103,20,11,"#F0DDC1"),rect(181,106,36,20,"#809387"),
+        rect(146,133,5,5,"#3C333E"),rect(215,133,5,5,"#3C333E"),
+        rect(107,129,43,8,"#B49D86"),rect(104,132,49,5,"#B49D86"),
+        nap ? R("g",null,person("hero",182,110,"sleep","mem-breathe"),person("girl",76,115,"sleep","mem-breathe"),
+          R("g",{className:"mem-zzz"},words(69,96,"Zzz", "#D6DAE7",6),words(177,91,"zZ", "#F0DDC1",6))) : null,
+        tv ? R("g",null,person("hero",61,119,"sit","mem-breathe"),person("girl",96,119,"sit","mem-breathe")) : null,
+        lazy ? R("g",null,person("hero",73,116,"sleep","mem-lounge"),person("girl",185,111,"sleep","mem-lounge mem-late")) : null,
+        meal ? R("g",null,person("hero",97,123,"sit","mem-eat"),person("girl",157,123,"sit","mem-eat mem-late"),
+          rect(113,112,29,17,"#B98C6C"),rect(109,112,37,5,"#E1B58A"),rect(113,129,4,10,"#624B42"),rect(139,129,4,10,"#624B42"),
+          rect(115,110,9,3,"#EEE0C5"),rect(132,110,9,3,"#EEE0C5"),rect(117,107,5,3,"#F5E9D5"),rect(134,107,5,3,"#F5E9D5"),
+          rect(126,111,4,2,"#D78F65"),R("g",{className:"mem-steam"},rect(119,100,1,3,"#E9D7BB"),rect(136,101,1,3,"#E9D7BB"))) : null,
+        words(25,25,item.hud,"#D8BC99",4),progress);
+    }
+    return R("div", { className:"earth-memory", "data-memory-scene": item.id },
+      R("svg", { key:id, viewBox: ["nap","tv","lounge","meal"].includes(id) && typeof window!=="undefined" && window.innerWidth<520 ? "16 24 224 140" : "0 0 256 168", role:"img", "aria-label":item.alt,
+        shapeRendering:"crispEdges", className:"earth-diorama" }, content));
+  }
+
+  bar(n, total, color, size) {
+    const R = React.createElement;
+    return Array.from({ length: total }).map((_, i) => R("span", {
+      key: i,
+      style: {
+        display: "inline-block", width: size || 7, height: size || 10,
+        background: i < n ? color : "rgba(255,255,255,.12)",
+        boxShadow: i < n ? "0 0 8px " + color + "66" : "none"
+      }
+    }));
+  }
+
+  sprite(map, px, opts) {
+    const o = opts || {};
+    const sh = [];
+    for (let y = 0; y < map.length; y++) for (let x = 0; x < map[y].length; x++) {
+      const c = map[y][x];
+      if (c === "." || !PAL[c]) continue;
+      sh.push(x * px + "px " + y * px + "px 0 " + PAL[c]);
+    }
+    return React.createElement("span", {
+      style: {
+        display: "block", position: "relative", width: map[0].length * px, height: map.length * px,
+        transform: o.flip ? "scaleX(-1)" : "none", animation: o.anim || "none",
+        filter: o.glow ? "drop-shadow(0 0 10px " + o.glow + ")" : "none"
+      }
+    }, React.createElement("span", {
+      style: { position: "absolute", left: 0, top: 0, width: px, height: px, boxShadow: sh.join(",") }
+    }));
+  }
+
+  btn(label, onClick, tone, interrupt = false) {
+    const c = tone === "primary" ? "#FFD166" : tone === "ghost" ? "#5E7BB0" : "#7CE7FF";
+    return React.createElement("button", {
+      key: label, "data-interrupt": interrupt, onClick: () => {
+        if (!interrupt && this.renderVals(true).locked) return;
+        if (onClick !== this.back) this._reviewing = false;
+        if (label === "[ 처음부터 ]") {
+          this._backHistory = [];
+          this._messageSnapshot = null;
+        }
+        onClick();
+      },
+      style: {
+        border: "2px solid " + c, background: tone === "primary" ? "rgba(255,209,102,.14)" : "rgba(124,231,255,.08)",
+        color: c, padding: "12px 16px", fontFamily: "'Press Start 2P', monospace",
+        fontSize: "clamp(8px,2.2vw,10px)", lineHeight: 1.6, cursor: "pointer",
+        boxShadow: "0 0 0 2px rgba(4,6,15,.9), 0 0 18px " + c + "33"
+      }
+    }, label);
+  }
+
+  renderVals(raw = false) {
+    const R = React.createElement;
+    const S = this.state;
+    const name = this.props.name ?? "지운";
+    const partner = this.props.partner ?? "혜연";
+    const px = typeof window !== "undefined" && window.innerWidth < 520 ? 4 : 6;
+
+    // ── 씬
+    let scene = null, sceneLabel = "";
+    if (S.ch === "boot") {
+      sceneLabel = "BOOT SEQUENCE";
+      scene = R("pre", {
+        style: {
+          margin: 0, padding: "clamp(14px,3vw,24px)", position: "absolute", inset: 0, overflow: "auto",
+          fontFamily: "ui-monospace,Menlo,monospace", fontSize: "clamp(10px,2.6vw,13px)",
+          lineHeight: 1.9, color: "#9FE8C8", whiteSpace: "pre-wrap"
+        }
+      }, BOOT.slice(0, S.bootN).join("\n") + (S.bootN < BOOT.length ? "\n▌" : ""));
+    } else if (S.ch === "space") {
+      sceneLabel = "SECTOR 09 · DEEP SPACE";
+      scene = R("div", { style: { position: "absolute", inset: 0 } },
+        R("div", { style: { position: "absolute", left: "8%", top: "50%", transform: "translateY(-50%)", animation: "bob2 3.4s ease-in-out infinite" } },
+          this.sprite(SHIP, px, { glow: "rgba(124,231,255,.5)" })),
+        ENEMIES.map((e, i) => i >= S.killed ? R("div", {
+          key: e.n,
+          style: {
+            position: "absolute", right: (6 + i * 15) + "%", top: (16 + (i % 3) * 24) + "%",
+            animation: "bob " + (1.8 + i * 0.4) + "s ease-in-out infinite", textAlign: "center"
+          }
+        },
+          this.sprite(i === 0 ? BUG : i === 1 ? ["CCCCCCCCC","C.......C","C.C...C.C","CC.....CC","C.C...C.C","C.......C","CCCCCCCCC"] : [".....YY..","....YY...","...YY....","..YYYYYY.",".....YY..","....YY...","...YY...."], px, { glow: ["#FF7BA877","#7CE7FF77","#FFD16677"][i] }),
+          R("div", { style: { marginTop: 6, fontFamily: "'Press Start 2P',monospace", fontSize: 7, color: "#FF7BA8" } }, e.n)
+        ) : null)
+      );
+    } else if (S.ch === "quantum") {
+      sceneLabel = "QUANTUM ZONE · 관측 전";
+      scene = R("div", {
+        style: {
+          position: "absolute", inset: 0, display: "flex",
+          alignItems: "center", justifyContent: "center", gap: "clamp(14px,5vw,54px)", flexWrap: "wrap",
+          animation: S.glitch ? "glitch .3s steps(2) infinite" : "none"
+        }
+      },
+        [["코딩 중", "#7CE7FF"], ["무협 읽는 중", "#FFD166"], ["자는 중", "#8A5CF6"]].map(([t, c], i) => R("div", {
+          key: t,
+          style: {
+            textAlign: "center",
+            opacity: S.observed ? (S.observed === t ? 1 : 0.15) : 0.62,
+            transition: "opacity .6s ease"
+          }
+        },
+          this.sprite(HERO, px, { glow: c + "77", anim: "bob 2.6s ease-in-out " + i * 0.6 + "s infinite" }),
+          R("div", { style: { marginTop: 10, fontFamily: "'Press Start 2P',monospace", fontSize: "clamp(7px,2vw,9px)", color: c } }, "[ " + t + " ]")
+        ))
+      );
+    } else if (S.ch === "murim") {
+      sceneLabel = S.murimIn ? "MURIM DIMENSION · 무림 차원" : "UNKNOWN PORTAL";
+      scene = S.murimIn
+        ? R("div", { style: { position: "absolute", inset: 0, overflow: "hidden" } },
+            R("div", { style: { position: "absolute", inset: 0, background: "linear-gradient(180deg,rgba(20,10,40,.7),rgba(60,20,50,.35))" } }),
+            R("div", { style: { position: "absolute", right: "10%", top: "14%", width: 46, height: 46, borderRadius: "50%", background: "#FFE6A8", boxShadow: "0 0 40px rgba(255,230,168,.55)" } }),
+            /* TODO(pixel art): 산·대나무·기와집 도트 이미지로 교체 */
+            R("div", { style: { position: "absolute", left: 0, right: 0, bottom: 0, height: "38%", background: "linear-gradient(180deg,#1B1233,#0A0714)", clipPath: "polygon(0 46%,12% 20%,26% 52%,40% 14%,58% 50%,72% 24%,88% 54%,100% 30%,100% 100%,0 100%)" } }),
+            [12, 22, 78, 88].map(l => R("div", { key: l, style: { position: "absolute", left: l + "%", bottom: "26%", width: 4, height: "26%", background: "#2F6B4F" } })),
+            R("div", { style: { position: "absolute", left: "50%", bottom: "24%", transform: "translateX(-50%)", animation: "bob 3s ease-in-out infinite" } },
+              this.sprite(SWORD, px + 1, { glow: "rgba(138,92,246,.5)" })),
+            R("div", { style: { position: "absolute", left: 14, bottom: 12, display: "grid", gap: 6 } },
+              MURIM_STATS.map(([k, v, c]) => R("div", { key: k, style: { display: "flex", alignItems: "center", gap: 8, fontFamily: "'Press Start 2P',monospace", fontSize: 7, color: "#9FB6E0" } },
+                R("span", { style: { width: 52, display: "inline-block" } }, k),
+                R("span", { style: { display: "inline-flex", gap: 2 } }, this.bar(v, 10, c, 6))
+              )).concat([R("div", {
+                key: "warn",
+                style: {
+                  marginTop: 6, border: "2px solid #FF7BA8", background: "rgba(30,6,16,.9)", color: "#FF7BA8",
+                  padding: "7px 9px", fontFamily: "'Press Start 2P',monospace", fontSize: 7, lineHeight: 1.8,
+                  maxWidth: "min(56vw,300px)", animation: "popin .4s both"
+                }
+              }, "WARNING : 지운의 HP가 부족합니다.\n건강을 챙겨주세요.")]))
+          )
+        : R("div", { style: { position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 16, animation: S.glitch ? "glitch .25s steps(2) infinite" : "none" } },
+            R("div", { style: { width: "clamp(110px,26vw,170px)", aspectRatio: "1", borderRadius: "50%", border: "6px solid #8A5CF6", background: "radial-gradient(circle,rgba(138,92,246,.5),rgba(10,6,24,.9) 68%)", boxShadow: "0 0 50px rgba(138,92,246,.5)", animation: "portal 8s linear infinite" } }),
+            R("div", { style: { fontFamily: "'Press Start 2P',monospace", fontSize: "clamp(7px,2vw,9px)", color: "#C7B3FF" } }, "PORTAL ACTIVE"));
+    } else if (S.ch === "planet") {
+      sceneLabel = "BIRTHDAY PLANET · 09.16";
+      scene = R("div", { style: { position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 18 } },
+        R("div", { style: { animation: "bob 5s ease-in-out infinite" } }, this.sprite(PLANET, px + 2, { glow: "rgba(255,209,102,.45)" })),
+        R("div", { style: { animation: "bob2 3.2s ease-in-out infinite" } }, this.sprite(SHIP, px - 1, { glow: "rgba(124,231,255,.4)" })),
+        S.level === 32 ? R("div", { style: { textAlign: "center", fontFamily: "'Press Start 2P',monospace", lineHeight: 2, color: "#FFD166", animation: "levelpulse 1.6s ease-in-out infinite" } },
+          R("div", { style: { fontSize: "clamp(9px,2.6vw,13px)" } }, "LEVEL 31 → 32"),
+          R("div", { style: { fontSize: "clamp(8px,2.2vw,11px)", color: "#FF7BA8" } }, "HAPPY BIRTHDAY, " + name + "!")) : null,
+        S.fw > 0 ? R("div", { key: "fw" + S.fw, style: { position: "absolute", inset: 0, pointerEvents: "none" } },
+          [[26, 28], [74, 22], [50, 68]].map(([lx, ty], g) => R("div", { key: g, style: { position: "absolute", left: lx + "%", top: ty + "%" } },
+            Array.from({ length: 12 }).map((_, i) => {
+              const a = (i / 12) * Math.PI * 2, d = 46 + (g % 2) * 18;
+              return R("span", { key: i, style: {
+                position: "absolute", width: 5, height: 5,
+                background: ["#FFD166", "#7CE7FF", "#FF7BA8", "#E8EEFB"][(i + g) % 4],
+                "--tx": Math.cos(a) * d + "px", "--ty": Math.sin(a) * d + "px",
+                animation: "burst 1.1s ease-out " + (g * 0.45).toFixed(2) + "s forwards"
+              } });
+            })))) : null,
+        S.burst > 0 ? R("div", { key: S.burst, style: { position: "absolute", left: "50%", top: "46%", pointerEvents: "none" } },
+          Array.from({ length: 22 }).map((_, i) => {
+            const a = (i / 22) * Math.PI * 2, d = 90 + (i % 4) * 34;
+            return R("span", {
+              key: i,
+              style: {
+                position: "absolute", width: 6, height: 6,
+                background: ["#FFD166", "#7CE7FF", "#FF7BA8", "#E8EEFB"][i % 4],
+                "--tx": Math.cos(a) * d + "px", "--ty": Math.sin(a) * d + "px",
+                animation: "burst " + (0.9 + (i % 5) * 0.12).toFixed(2) + "s ease-out forwards"
+              }
+            });
+          })) : null
+      );
+      if (S.birthdayLog) { sceneLabel = "PLAYER 지운 · EARTH"; scene = this.memoryScene(-1); }
+    } else if (S.ch === "memory") {
+      sceneLabel = MEMORY[S.memoryPhase].id === "office" ? "FIRST ENCOUNTER · OFFICE" : "EARTH MEMORY · " + MEMORY[S.memoryPhase].hud;
+      scene = this.memoryScene(S.memoryPhase);
+    } else {
+      const P = S.endPhase;
+      sceneLabel = P === 0 ? "BIRTHDAY PLANET · CELEBRATION" : "PARTY : " + name + " & " + partner;
+      const endingPx = px === 4 ? 7 : 10;
+      const gap = (endingPx * (P >= 2 ? 3.2 : 6)) + "px";
+      scene = R("div", { "data-ending-characters":2, "data-kiss":P>=2, style: { position:"absolute", inset:0, overflow:"hidden" } },
+        R("div", { style:{ position:"absolute", inset:0, background:"radial-gradient(ellipse at 50% 75%,rgba(124,231,255,.13),transparent 65%)" } }),
+        P === 0 ? R("div", { style:{position:"absolute",left:0,right:0,top:"12%",textAlign:"center",fontFamily:"'Press Start 2P',monospace",fontSize:"clamp(9px,2.5vw,13px)",color:"#FFD166",animation:"levelpulse 1s ease-in-out infinite"}},"LEVEL 31 → 32") : null,
+        [[18,22],[82,31],[28,62],[74,72],[46,14]].map(([left,top],i)=>R("span",{key:"spark"+i,style:{position:"absolute",left:left+"%",top:top+"%",width:i%2?3:5,height:i%2?3:5,background:i%2?"#7CE7FF":"#FFD166",opacity:.45}})),
+        R("div", { style:{ position:"absolute", left:"50%", top:"22%", transform:"translateX(-50%)", opacity:.16 } },this.sprite(PLANET,px-1)),
+        P === 0 ? R("div", { key:"birthday-fireworks", style:{position:"absolute",inset:0,pointerEvents:"none"} },
+          [[23,30],[76,26],[50,49]].map(([x,y],g)=>R("div",{key:g,style:{position:"absolute",left:x+"%",top:y+"%"}},
+            Array.from({length:16},(_,i)=>{
+              const a=i/16*Math.PI*2,d=42+(i%3)*11;
+              return R("span",{key:i,style:{position:"absolute",width:5,height:5,
+                background:["#FFD166","#7CE7FF","#FF7BA8"][i%3],
+                "--tx":Math.cos(a)*d+"px","--ty":Math.sin(a)*d+"px",
+                animation:"burst 1.2s ease-out "+g*.24+"s both"}});
+            })))) : null,
+        R("div", { style:{position:"absolute",left:0,right:0,bottom:"25%",height:0} },
+          R("div",{style:{position:"absolute",left:"50%",bottom:0,
+            transform:"translateX(calc(-50% - "+gap+"))",
+            transition:"transform .7s ease"}},
+            R("div",{style:{transform:P>=2?"rotate(4deg)":"none",transformOrigin:"50% 100%",transition:"transform .8s ease"}},
+              this.sprite(HERO,endingPx,{glow:"rgba(255,209,102,.35)"}))),
+          R("div",{style:{position:"absolute",left:"50%",bottom:0,opacity:1,
+            transform:"translateX(calc(-50% + "+gap+"))",
+            transition:"transform 1.5s ease, opacity .4s ease"}},
+            R("div",{style:{transform:P>=2?"rotate(-8deg)":"none",transformOrigin:"50% 100%",transition:"transform .8s ease"}},
+              this.sprite(GIRL,endingPx,{flip:true,glow:"rgba(255,123,168,.3)"}))),
+          P>=2?R("div",{key:"kiss",style:{position:"absolute",left:"50%",bottom:endingPx*13,transform:"translateX(-50%)",color:"#FF7BA8",fontSize:22}},
+            R("span",{style:{display:"block",animation:"ending-heart 4.8s ease-in-out infinite"}},"♥")):null
+        )
+      );
+    }
+
+    // ── 대사 / 선택
+    let dialogue = SCRIPT[S.ch].lines[S.li] || "", choices = [];
+    if (S.ch === "boot") {
+      dialogue = S.bootN === 0
+        ? "전원을 넣어보자."
+        : S.bootN < BOOT.length ? "" : "플레이어 데이터 로드 완료. 퀘스트를 시작할 수 있다.";
+      choices = S.bootN === 0
+        ? [this.btn("[ POWER ON ]", this.bootStep, "primary")]
+        : S.bootN < BOOT.length ? [this.btn("[ SKIP ]", () => this.setState({ bootN: BOOT.length }), "ghost")]
+        : [this.btn("[ START BIRTHDAY QUEST ]", () => this.go("space"), "primary")];
+    } else if (S.ch === "space") {
+      if (S.li >= SCRIPT.space.lines.length) {
+        const e = ENEMIES[S.killed];
+        dialogue = S.tripped
+          ? "함께한 여행 defeated.  +30 EXP\n아직 정리 안 된 여행 사진이 절반이다.\nEXP " + S.exp + " 획득. 올해도 살아남았다."
+          : S.combatMessage || (e ? e.n + " 이(가) 나타났다!" : "적은 전부 정리됐다. 좋은 기억도 경험치가 된다.");
+        choices = e
+          ? S.combatMessage
+            ? [this.btn("▶ NEXT", this.nextEnemy, "primary")]
+            : [this.btn("[ ATTACK ]", this.fight, "primary"), this.btn("EXP " + S.exp, () => {}, "ghost")]
+          : S.tripped
+            ? [this.btn("[ 계속 항해 ]", () => this.go("quantum"), "primary"), this.btn("EXP " + S.exp, () => {}, "ghost")]
+            : [this.btn("▶ NEXT", this.trip, "primary")];
+      } else {
+        choices = S.spaceIntroAuto
+          ? [this.btn("[ ATTACK ]", this.fight, "primary")]
+          : [this.btn("▶ NEXT", this.next)];
+      }
+    } else if (S.ch === "quantum") {
+      if (S.li >= 2) {
+        dialogue = S.observing ? "OBSERVING..." :
+          S.observed ? "WAVE FUNCTION COLLAPSED.\nRESULT : " + S.observed + ".\n무협 읽다가 그대로 잠든 것으로 추정. 역시." :
+          "관측하시겠습니까? (관측하면 확정됩니다)";
+        choices = S.observing ? [] :
+          S.observed ? [this.btn("[ 계속 항해 ]", () => this.go("murim"), "primary")]
+          : [this.btn("[ 관측하기 ]", this.observe, "primary")];
+      } else {
+        choices = [this.btn("▶ NEXT", this.next)];
+      }
+    } else if (S.ch === "murim") {
+      if (S.murimIn) {
+        dialogue = "개발계의 고수 지운.\n낮에는 잠을 자고, 밤에는 코드를 짜고,\n새벽에는 무협지를 탐독하며\n수많은 야근의 겁난을 견뎌냈다.\n\n밤낮이 뒤바뀐 삶. 그러나 이것이 그의 수련법이었다.";
+        choices = [this.btn("[ 포탈 복귀 ]", () => this.go("planet"), "primary")];
+      } else if (S.li >= 1) {
+        choices = [this.btn("[ YES ]", this.enterMurim), this.btn("[ 당연히 YES ]", this.enterMurim, "primary")];
+      } else {
+        choices = [this.btn("▶ NEXT", this.next)];
+      }
+    } else if (S.ch === "planet") {
+      if (S.li >= 2) {
+        dialogue = S.birthdayLog
+          ? "1994.09.16\nPLAYER 지운이\n지구에 접속한 날."
+          : "착륙 완료. 뭔가 올라갈 것 같다.";
+        choices = S.birthdayLog
+          ? [this.btn("▶ NEXT", () => this.go("memory"), "primary")]
+          : [this.btn("▶ NEXT", this.openEarthLog, "primary")];
+      } else {
+        choices = [this.btn("▶ NEXT", this.next)];
+      }
+    } else if (S.ch === "memory") {
+      dialogue = MEMORY[S.memoryPhase].text;
+      choices = [this.btn("▶ NEXT", this.advanceMemory, "primary")];
+    } else {
+      const P = S.endPhase;
+      if (P < 3) {
+        dialogue = P === 0 ? "MISSION COMPLETE\nLEVEL 31 → LEVEL 32\nHAPPY BIRTHDAY, 지운!" : P === 1 ? "BACK TO PRESENT.\n이제는 함께 접속 중." : "...!";
+        choices = P === 2 ? [this.btn("▶ NEXT", this.skipEnding, "primary")] : [];
+      } else if (P === 3) {
+        dialogue = this.isSample ? "생일 진짜 많이 축하해 ❤️" : "앞으로도 하고 싶은 거 실컷 하고,\n좋아하는 무협도 실컷 읽고,\n나랑 여행도 많이 다니고,\n\n돈도 많이 벌어서 사랑하는 가족들도 잘 챙기고,\n무엇보다 아프지 말고 건강하게\n나랑 오래오래 같이 놀자.\n\n지운아, 생일 진짜 많이 축하해 ❤️사랑해";
+        choices = [this.btn("▶ NEXT", () => {
+          this._followDialogue = true;
+          this.setState({ endPhase: 5, ended: true, typed: "", dialogueHistory: [] });
+        }, "primary")];
+      } else {
+        dialogue = "다음 생일까지 계속됩니다...\n\nMAIN QUEST UPDATED — " + name + "이 하고 싶은 거 다 하면서 행복하게 살기\nPLAYER : " + name + "  ·  LEVEL : 32\nPARTY MEMBER : " + partner + " ❤️  ·  PARTY STATUS : 함께 모험 중...";
+        choices = [this.btn("[ 처음부터 ]", () => (this._ranEnd = 0, this.setState({ ch: "boot", li: 0, bootN: 0, killed: 0, exp: 0, combatMessage: "", observed: null, murimIn: false, level: 31, birthdayLog: false, ended: false, tripped: false, endPhase: 0, endingBusy: false, fw: 0, memoryPhase: 0, typed: "" })), "ghost")];
+      }
+    }
+
+    const toast = S.lastKill && S.ch === "space" ? R("div", {
+      style: {
+        position: "absolute", top: 14, right: 14, border: "2px solid #6BE3A8",
+        background: "rgba(6,20,16,.9)", color: "#6BE3A8", padding: "8px 12px",
+        fontFamily: "'Press Start 2P',monospace", fontSize: 8, animation: "popin .3s both"
+      }
+    }, "+" + S.lastKill.exp + " EXP") : null;
+
+    const overlay = S.ach ? R("div", {
+      style: {
+        position: "fixed", left: "50%", bottom: "6vh", transform: "translateX(-50%)", zIndex: 40,
+        border: "2px solid #FFD166", background: "rgba(14,10,2,.94)", padding: "14px 18px",
+        textAlign: "center", animation: "popin .4s both", maxWidth: "min(92vw,420px)"
+      }
+    },
+      R("div", { style: { fontFamily: "'Press Start 2P',monospace", fontSize: 8, color: "#FFD166", marginBottom: 8 } }, "ACHIEVEMENT UNLOCKED"),
+      R("div", { style: { fontFamily: "'Press Start 2P',monospace", fontSize: "clamp(8px,2.4vw,11px)", color: "#E8EEFB", lineHeight: 1.7 } }, S.ach)) : null;
+
+    if (S.ch !== "boot" && this._backHistory.length > 0) {
+      choices = [this.btn("◀ BACK", this.back, "ghost")].concat(choices);
+    }
+
+    const fullDialogue = dialogue;
+    const startReady = S.ch === "boot" && (S.bootN === 0 || S.bootN >= BOOT.length);
+    const locked = !startReady && ((S.ch === "space" && S.spaceIntroAuto && S.li < SCRIPT.space.lines.length) || !!this._typing || fullDialogue !== this._dialogueTarget ||
+      (!this._reviewing && (S.observing || S.glitch)) ||
+      (S.ch === "boot" && S.bootN > 0 && S.bootN < BOOT.length) ||
+      (!this._reviewing && S.ch === "message" && (S.endPhase < 2 || (S.endPhase === 2 && S.endingBusy))));
+    if (!raw) {
+      const sameChapter = this._dialogueChapter === S.ch;
+      const current = sameChapter && fullDialogue === this._dialogueTarget ? S.typed : "";
+      dialogue = [...(sameChapter ? S.dialogueHistory : []), current].filter(Boolean).join("\n\n");
+      choices = choices.map(button => React.cloneElement(button, {
+        disabled: locked && !button.props["data-interrupt"],
+        "aria-disabled": locked && !button.props["data-interrupt"],
+        style: { ...button.props.style, opacity: locked && !button.props["data-interrupt"] ? 0.4 : 1,
+          cursor: locked && !button.props["data-interrupt"] ? "not-allowed" : "pointer" }
+      }));
+    }
+
+    const dialogueLog = raw ? null : R("div", {
+      role: "region", "aria-label": "현재 챕터 대사 기록", tabIndex: 0,
+      style: { fontSize: "clamp(13px,3.4vw,16px)", lineHeight: 1.9,
+        whiteSpace: "pre-wrap", minHeight: "5.4em", maxHeight: "32svh",
+        overflowY: "auto", overflowWrap: "anywhere", paddingRight: 8,
+        overscrollBehavior: "contain", scrollbarGutter: "stable" },
+      ref: el => {
+        if (el && this._followDialogue !== false) el.scrollTop = el.scrollHeight;
+      },
+      onScroll: event => {
+        const el = event.currentTarget;
+        this._followDialogue = el.scrollHeight - el.scrollTop - el.clientHeight < 32;
+      }
+    }, dialogue);
+
+    return {
+      fullDialogue, locked, dialogueLog,
+      playerName: name, level: S.level,
+      hpBar: this.bar(S.ch === "message" ? 10 : 8, 10, "#6BE3A8"),
+      coffeeBar: this.bar(S.coffee, 8, "#FFD166"),
+      sleepLabel: S.ch === "message" ? "OK" : "LOW",
+      sceneLabel, scene, toast, overlay, dialogue,
+      chapterLabel: SCRIPT[S.ch].label,
+      choices
+    };
+  }
+}
+</script>
+</body>
+</html>
